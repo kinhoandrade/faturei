@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="app_name">Faturei</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Faturei</string>
+    <string name="chip">chip</string>
+    <string name="ver_fatura">Ver Fatura</string>
+    <string name="incluir_compra">Incluir Compra</string>
+    <string name="title_activity_incluir_compra">Faturei - Incluir Compra</string>
+    <string name="voltar">Voltar</string>
+    <string name="parcelado">Parcelado</string>
+    <string name="dia">Dia</string>
+    <string name="mes">Mês</string>
+    <string name="ano">Ano</string>
+    <string name="valor">Valor</string>
+    <string name="incluir">Incluir</string>
+    <string name="no_vezes">Nº Vezes</string>
+    <string name="title_activity_ver_fatura">Faturei - Ver Fatura</string>
+
+</resources>
