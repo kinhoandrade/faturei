@@ -22,4 +22,33 @@
         android:layout_marginRight="15dp"
         android:text="@string/voltar" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="limpar"
+        android:text="@string/limpar" />
+
+    <Spinner
+        android:id="@+id/spinnercartoes"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp" />
+
+    <Button
+        android:id="@+id/okfatura"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinnercartoes"
+        android:layout_alignTop="@id/spinnercartoes"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/spinnercartoes"
+        android:onClick="verFaturaCartao"
+        android:text="@string/ok" />
+
 </RelativeLayout>

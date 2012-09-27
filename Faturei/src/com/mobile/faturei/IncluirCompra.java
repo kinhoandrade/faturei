@@ -111,18 +111,13 @@ public class IncluirCompra extends Activity {
     public void incluir(View view) {
         switch (view.getId()) {
         case R.id.button2:
-        	       	
-        	float tempValor = 0;
-            CheckBox parcelado = (CheckBox) findViewById(R.id.checkBox1);
+        	CheckBox parcelado = (CheckBox) findViewById(R.id.checkBox1);
             //Spinner parcelas = (Spinner) findViewById(R.id.spinner4);
                     	
             if (valor.getText().length() == 0) {
                 Toast.makeText(this, "Favor Inserir o total", Toast.LENGTH_LONG).show();
                 return;
             }
-            
-            
-            tempValor = Float.parseFloat(valor.getText().toString());
             
             if(parcelado.isChecked()){
                 Toast.makeText(this, "Compra parcelada", Toast.LENGTH_LONG).show();

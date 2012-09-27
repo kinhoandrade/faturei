@@ -22,7 +22,7 @@ public class DBAdapter
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_CREATE =
-        "create table titles (_id integer primary key autoincrement, "
+        "create table if not exists compras (_id integer primary key autoincrement, "
         + "valor text not null, data text not null, descricao text not null, " 
         + "cartao text not null);";
         
@@ -42,11 +42,12 @@ public class DBAdapter
         DatabaseHelper(Context context) 
         {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            this.onCreate(getWritableDatabase());
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) 
-        {
+        {        	
             db.execSQL(DATABASE_CREATE);
         }
 
@@ -55,7 +56,7 @@ public class DBAdapter
             Log.w(TAG, "Upgrading database from version " + oldVersion 
                   + " to "
                   + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS titles");
+            db.execSQL("DROP TABLE IF EXISTS compras");
             onCreate(db);
         }
     }    
@@ -73,20 +74,31 @@ public class DBAdapter
         DBHelper.close();
     }
     
-    public long insertCompra(String valor, String data, String cartao, String descricao) 
-    {
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_VALOR, valor);
-        initialValues.put(KEY_DATA, data);
-        initialValues.put(KEY_CARTAO, cartao);
-        initialValues.put(KEY_DESCRICAO, descricao);
-        return db.insert(DATABASE_TABLE, null, initialValues);
+	public long insertCompra(String valor, String data, String cartao, String descricao){
+    	long retorno = 0;
+    	try{
+	        ContentValues initialValues = new ContentValues();
+	        initialValues.put(KEY_VALOR, valor);
+	        initialValues.put(KEY_DATA, data);
+	        initialValues.put(KEY_CARTAO, cartao);
+	        initialValues.put(KEY_DESCRICAO, descricao);
+	        retorno = db.insert(DATABASE_TABLE, null, initialValues);
+        }catch(Exception e){
+        	e.printStackTrace();
+        }finally{
+        	this.close();
+        } 
+        return retorno;
     }
     
     //---deletes a particular title---
     public boolean deleteValor(long rowId) 
     {
         return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+    
+    public int deleteAll(){
+    	return db.delete(DATABASE_TABLE, "_id > 0", null);
     }
 
     public Cursor getAllCompras() 
@@ -97,6 +109,17 @@ public class DBAdapter
         		KEY_DATA,
                 KEY_CARTAO,
                 KEY_DESCRICAO}, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null);
+    }
+    
+    public Cursor getAllCartoes() 
+    {
+        return db.query(DATABASE_TABLE, new String[] {
+                KEY_CARTAO}, 
                 null, 
                 null, 
                 null, 

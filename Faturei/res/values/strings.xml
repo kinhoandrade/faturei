@@ -17,5 +17,7 @@
     <string name="incluir">Incluir</string>
     <string name="no_vezes">Nº Vezes</string>
     <string name="title_activity_ver_fatura">Faturei - Ver Fatura</string>
+    <string name="limpar">limpar</string>
+    <string name="ok">OK</string>
 
 </resources>
