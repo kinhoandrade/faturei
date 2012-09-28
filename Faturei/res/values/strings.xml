@@ -21,8 +21,10 @@
     <string name="ok">OK</string>
     <string name="configuracoes">Configurações</string>
     <string name="title_activity_configuracoes">Faturei - Configuracoes</string>
-    <string name="adicionarcartao">Adicionar Cartao</string>
+    <string name="adicionarcartao"><b>Adicionar Cartao</b></string>
     <string name="nomeCartao">Nome do Cartão</string>
     <string name="vencimento">Vencimento</string>
+    <string name="excluir">Excluir</string>
+    <string name="excluircartao"><b>Excluir Cartao</b></string>
 
 </resources>

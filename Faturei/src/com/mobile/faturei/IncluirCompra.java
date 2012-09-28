@@ -1,6 +1,7 @@
 package com.mobile.faturei;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class IncluirCompra extends Activity {
     private DecimalFormat df = new DecimalFormat("0.00");  
     private String array_spinner[];
     private Button btnVoltar;
+    private List<String> cartoes;
 
 
     @Override
@@ -55,11 +57,14 @@ public class IncluirCompra extends Activity {
         parcelas.setAdapter(adapter);
         parcelas.setSelection(0);
         
-        
-        array_spinner= new String[3];
-        array_spinner[0] = "VISA";
-        array_spinner[1] = "MASTERCARD";
-        array_spinner[2] = "SUBMARINO";
+
+        cartoes = MainActivity.getCartoes();
+        int i = 0;
+        array_spinner= new String[cartoes.size()];
+        for (String string : cartoes) {
+			array_spinner[i] = string;
+        	i++;
+		}
         
         cartao = (Spinner) findViewById(R.id.spinner5);
         
@@ -76,28 +81,56 @@ public class IncluirCompra extends Activity {
         switch (view.getId()) {
         case R.id.button2:
         	CheckBox parcelado = (CheckBox) findViewById(R.id.checkBox1);
-            //Spinner parcelas = (Spinner) findViewById(R.id.spinner4);
+            Spinner parcelas = (Spinner) findViewById(R.id.spinner4);
+            int qtdParcelas = 1;
                     	
             if (valor.getText().length() == 0) {
                 Toast.makeText(this, "Favor Inserir o total", Toast.LENGTH_LONG).show();
                 return;
             }
             
-            if(parcelado.isChecked()){
-                Toast.makeText(this, "Compra parcelada", Toast.LENGTH_LONG).show();
-                return;
+            if(!parcelado.isChecked()){
+	            Compra compra = new Compra();
+	            String data = dataCompra.getDayOfMonth() + "/" + dataCompra.getMonth() + "/" + dataCompra.getYear();
+	            compra.setData( data );
+	            compra.setDescricao("A vista");
+	            if(cartoes.size() < 1){
+	            	MainActivity.addCartao("DEFAULT", data);
+	            	compra.setCartao("DEFAULT");
+	            }else{
+	            	compra.setCartao(cartao.getSelectedItem().toString());
+	            }
+	            compra.setValor(Double.parseDouble(df.format(Double.parseDouble(valor.getText().toString()))));
+	            MainActivity.addCompra(compra);
+            }else{
+            	qtdParcelas = Integer.parseInt(parcelas.getSelectedItem().toString());
+            	double valorCompra = Double.parseDouble(valor.getText().toString());
+            	double valorCompraParcelada = valorCompra / qtdParcelas;
+            	
+            	for (int i = 0; i < qtdParcelas; i ++){
+		            Compra compra = new Compra();
+		            String data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + i)  + "/" + dataCompra.getYear();
+		            compra.setData( data );
+		            compra.setDescricao((i + 1) + " de " + qtdParcelas );
+		            if(cartoes.size() < 1){
+		            	MainActivity.addCartao("DEFAULT", data);
+		            	compra.setCartao("DEFAULT");
+		            }else{
+		            	compra.setCartao(cartao.getSelectedItem().toString());
+		            }
+		            compra.setValor(Double.parseDouble(df.format(valorCompraParcelada)));
+		            MainActivity.addCompra(compra);
+            	}            	
             }
             
-            Compra compra = new Compra();
-            compra.setData( dataCompra.getDayOfMonth() + "/" + dataCompra.getMonth() + "/" + dataCompra.getYear());
-            compra.setDescricao("compra");
-            compra.setCartao(cartao.getSelectedItem().toString());
-            compra.setValor(Double.parseDouble(valor.getText().toString()));
-            MainActivity.addCompra(compra);
+            if(parcelado.isChecked()){
+                Toast.makeText(this, "COMPRA PARCELADA INSERIDA", Toast.LENGTH_LONG).show();
+            }else {
+            	Toast.makeText(getApplicationContext(), "INSERIDO COM SUCESSO", Toast.LENGTH_LONG).show();
+            }
             
-            Toast.makeText(getApplicationContext(), "INSERIDO COM SUCESSO", Toast.LENGTH_LONG).show();
-            df.format(0);
-            
+            parcelado.setChecked(false);
+            parcelas.setSelection(0);       
             valor.setText(null);
 	        break;
         }

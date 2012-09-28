@@ -1,5 +1,6 @@
 package com.mobile.faturei;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class VerFatura extends Activity {
 	private TextView comprasView;
 	private Spinner cartoes;
     private String array_spinner[];
+    private DecimalFormat df = new DecimalFormat("0.00"); 
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,11 +82,12 @@ public class VerFatura extends Activity {
 		comprasView.setText("");
     	for (Compra compraAux : lista) {
     		if(cartaoEscolhido.equals(compraAux.getCartao().toString()) || cartaoEscolhido.equals("TODOS")){
-        		total = total + Double.parseDouble(compraAux.getValor().toString());
-        		comprasView.setText(comprasView.getText() + " [" + compraAux.getCartao().toString() + "] " + compraAux.getData() + " = R$ " + compraAux.getValor().toString() + "\n");
+        		total = total + Double.parseDouble(df.format(compraAux.getValor()));
+        		double compraValor = compraAux.getValor();
+        		comprasView.setText(comprasView.getText() + " [" + compraAux.getCartao().toString() + "] " + compraAux.getData() + " = R$ " + df.format(compraValor) + " - " + compraAux.getDescricao() + "\n");
     		}
 		}
-    	comprasView.setText(comprasView.getText() + "\nTotal = R$ " + total);    	
+    	comprasView.setText(comprasView.getText() + "\nTotal = R$ " + df.format(total));    	
     }
 
     public void limpar(View view){

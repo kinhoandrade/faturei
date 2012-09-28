@@ -1,6 +1,5 @@
 package com.mobile.entidades;
 
-
 public class Compra {
 	private String data;
 	private Double valor;

@@ -15,16 +15,25 @@ public class DBAdapter
     public static final String KEY_DATA = "data";
     public static final String KEY_CARTAO = "cartao";
     public static final String KEY_DESCRICAO = "descricao";
+
+    public static final String KEY_ROWID2 = "_id";
+    public static final String KEY_CARTAO2 = "cartao";
+    public static final String KEY_VENCIMENTO = "vencimento";
     private static final String TAG = "DBAdapter";
     
     private static final String DATABASE_NAME = "faturei";
     private static final String DATABASE_TABLE = "compras";
+    private static final String DATABASE_TABLE2 = "cartoes";
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_CREATE =
         "create table if not exists compras (_id integer primary key autoincrement, "
         + "valor text not null, data text not null, descricao text not null, " 
         + "cartao text not null);";
+    
+    private static final String DATABASE_CREATE2 =
+        "create table if not exists cartoes (_id integer primary key autoincrement, "
+        + "cartao text not null, vencimento);";
         
     private final Context context;  
     
@@ -49,6 +58,7 @@ public class DBAdapter
         public void onCreate(SQLiteDatabase db) 
         {        	
             db.execSQL(DATABASE_CREATE);
+            db.execSQL(DATABASE_CREATE2);
         }
 
         @Override
@@ -90,11 +100,30 @@ public class DBAdapter
         } 
         return retorno;
     }
+	
+	public long insertCartao(String cartao, String vencimento){
+    	long retorno = 0;
+    	try{
+	        ContentValues initialValues = new ContentValues();
+	        initialValues.put(KEY_CARTAO2, cartao);
+	        initialValues.put(KEY_VENCIMENTO, vencimento);
+	        retorno = db.insert(DATABASE_TABLE2, null, initialValues);
+        }catch(Exception e){
+        	e.printStackTrace();
+        }finally{
+        	this.close();
+        } 
+        return retorno;
+    }
     
     //---deletes a particular title---
     public boolean deleteValor(long rowId) 
     {
         return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+    public boolean deleteCartao(String cartao) 
+    {
+        return db.delete(DATABASE_TABLE2, KEY_CARTAO2 + "='" + cartao + "'", null) > 0;
     }
     
     public int deleteAll(){
@@ -118,7 +147,7 @@ public class DBAdapter
     
     public Cursor getAllCartoes() 
     {
-        return db.query(DATABASE_TABLE, new String[] {
+        return db.query(DATABASE_TABLE2, new String[] {
                 KEY_CARTAO}, 
                 null, 
                 null, 

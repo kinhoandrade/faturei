@@ -137,6 +137,30 @@ public class MainActivity extends Activity {
     	}
 	}
 	
+	public static void addCartao(String nome, String vencimento){
+		try{
+			db = db.open();
+			db.insertCartao(nome, vencimento);
+		}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	finally{
+    		db.close();
+    	}
+	}
+	
+	public static void removeCartao(String nome){
+		try{
+			db = db.open();
+			db.deleteCartao(nome);
+		}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	finally{
+    		db.close();
+    	}
+	}
+	
     public void irConfiguracoes(View view){    	
     	Intent nextScreen = new Intent(getApplicationContext(), Configuracoes.class);
     	
