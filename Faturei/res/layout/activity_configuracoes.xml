@@ -1,0 +1,117 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/chip"
+        android:src="@drawable/chip" />
+    
+    <TextView
+        android:id="@+id/adicionarCartao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/adicionarcartao" />
+
+    <TextView
+        android:id="@+id/nomeCartao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/adicionarCartao"
+        android:layout_below="@+id/adicionarCartao"
+        android:layout_marginTop="5dp"
+        android:text="@string/nomeCartao" />
+
+    <EditText
+        android:id="@+id/putNomeCartao"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nomeCartao"
+        android:layout_below="@+id/nomeCartao"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/vencimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/putNomeCartao"
+        android:layout_below="@+id/putNomeCartao"
+        android:layout_marginTop="5dp"
+        android:text="@string/vencimento" />
+
+    <DatePicker
+        android:id="@+id/vencimentoDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/vencimento"
+        android:layout_below="@id/vencimento"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:id="@+id/voltarConfiguracoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/putNomeCartao"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/voltar" />
+
+    <Button
+        android:id="@+id/okConfig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/vencimentoDatePicker"
+        android:layout_below="@+id/vencimentoDatePicker"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:onClick="incluirCartao"
+        android:text="@string/ok" />
+    
+    <TextView
+        android:id="@+id/excluirCartaoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/okConfig"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/okConfig"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/excluircartao" />
+    
+    <Spinner
+        android:id="@+id/cartoesLista"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/excluirCartaoText"
+        android:layout_below="@id/excluirCartaoText"
+        android:layout_marginTop="15dp" />
+
+    <Button
+        android:id="@+id/excluirCartao"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/cartoesLista"
+        android:layout_toRightOf="@id/cartoesLista"
+        android:onClick="excluirCartao"
+        android:text="@string/excluir" />
+
+
+</RelativeLayout>
