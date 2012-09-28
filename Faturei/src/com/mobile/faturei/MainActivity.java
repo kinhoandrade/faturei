@@ -136,4 +136,11 @@ public class MainActivity extends Activity {
     		db.close();
     	}
 	}
+	
+    public void irConfiguracoes(View view){    	
+    	Intent nextScreen = new Intent(getApplicationContext(), Configuracoes.class);
+    	
+    	startActivity(nextScreen);
+    }
+    
 }

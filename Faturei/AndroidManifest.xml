@@ -15,7 +15,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,14 +26,27 @@
         </activity>
         <activity
             android:name=".IncluirCompra"
-            android:label="@string/title_activity_incluir_compra" >
+            android:label="@string/title_activity_incluir_compra"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobile.faturei.MainActivity" />
         </activity>
         <activity
             android:name=".VerFatura"
-            android:label="@string/title_activity_ver_fatura" >
+            android:label="@string/title_activity_ver_fatura"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"  >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobile.faturei.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Configuracoes"
+            android:label="@string/title_activity_configuracoes"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobile.faturei.MainActivity" />

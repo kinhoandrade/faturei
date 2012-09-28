@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,12 +20,11 @@ public class IncluirCompra extends Activity {
 	private EditText valor;
 	private TextView vezes;
 	private Spinner parcelas;
-	private Spinner dia;
-	private Spinner mes;
-	private Spinner ano;
+	private DatePicker dataCompra;
 	private Spinner cartao;
-    DecimalFormat df = new DecimalFormat("0.00");  
+    private DecimalFormat df = new DecimalFormat("0.00");  
     private String array_spinner[];
+    private Button btnVoltar;
 
 
     @Override
@@ -33,9 +33,9 @@ public class IncluirCompra extends Activity {
         setContentView(R.layout.activity_incluir_compra);
         valor = (EditText) findViewById(R.id.editText1);
         vezes = (TextView) findViewById(R.id.textView5);
-        Button btnVoltar = (Button) findViewById(R.id.button1);
-
-        int aux = 0; 
+        btnVoltar = (Button) findViewById(R.id.button1);
+        dataCompra = (DatePicker) findViewById(R.id.dataCompra);
+ 
         array_spinner= new String[12];
         array_spinner[0] = "1";
         array_spinner[1] = "2";
@@ -54,42 +54,6 @@ public class IncluirCompra extends Activity {
 		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
         parcelas.setAdapter(adapter);
         parcelas.setSelection(0);
-        
-        array_spinner= new String[31];
-        for(int i = 0; i <= 30; i ++){
-        	aux = i + 1;
-        	array_spinner[i] = "" + aux;
-        }
-        dia = (Spinner) findViewById(R.id.spinner1);
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
-        dia.setAdapter(adapter2);
-        dia.setSelection(0);
-        
-        array_spinner= new String[12];
-        for(int i = 0; i <= 11; i++){
-        	aux = i + 1;
-        	array_spinner[i] = "" + aux;
-        }
-        mes = (Spinner) findViewById(R.id.spinner2);
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter3 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
-        mes.setAdapter(adapter3);
-        mes.setSelection(0);
-        
-        array_spinner= new String[7];
-        array_spinner[0] = "2012";
-        array_spinner[1] = "2012";
-        array_spinner[2] = "2013";
-        array_spinner[3] = "2014";
-        array_spinner[4] = "2015";
-        array_spinner[5] = "2016";
-        array_spinner[6] = "2017";
-        ano = (Spinner) findViewById(R.id.spinner3);
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter4 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
-        ano.setAdapter(adapter4);
-        ano.setSelection(0);       
         
         
         array_spinner= new String[3];
@@ -125,16 +89,15 @@ public class IncluirCompra extends Activity {
             }
             
             Compra compra = new Compra();
-            //compra.setCartao(cartao.getSelectedItem().toString());
-            compra.setData(dia.getSelectedItem().toString() + "/" + mes.getSelectedItem().toString() + "/" + ano.getSelectedItem().toString());
+            compra.setData( dataCompra.getDayOfMonth() + "/" + dataCompra.getMonth() + "/" + dataCompra.getYear());
             compra.setDescricao("compra");
             compra.setCartao(cartao.getSelectedItem().toString());
             compra.setValor(Double.parseDouble(valor.getText().toString()));
             MainActivity.addCompra(compra);
             
             Toast.makeText(getApplicationContext(), "INSERIDO COM SUCESSO", Toast.LENGTH_LONG).show();
+            df.format(0);
             
-	        //valor.setText(String.valueOf(df.format(0)));
             valor.setText(null);
 	        break;
         }

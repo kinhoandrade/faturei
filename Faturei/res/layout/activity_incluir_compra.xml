@@ -13,7 +13,7 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@string/chip"
         android:src="@drawable/chip" />
-    
+
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
@@ -22,8 +22,7 @@
         android:layout_alignRight="@+id/imageView1"
         android:layout_marginBottom="16dp"
         android:text="@string/voltar" />
-    
-    
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -49,63 +48,24 @@
         <requestFocus />
     </EditText>
 
-    <TextView
-        android:id="@+id/textView1"
+    <DatePicker
+        android:id="@+id/dataCompra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="18dp"
-        android:text="@string/dia" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1" />
-
+        android:layout_alignLeft="@id/editText1"
+        android:layout_below="@id/editText1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+        
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinner1"
-        android:layout_below="@+id/spinner1"
+        android:layout_alignLeft="@id/dataCompra"
+        android:layout_below="@id/dataCompra"
         android:layout_marginTop="30dp"
         android:onClick="parcelado"
         android:text="@string/parcelado" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/spinner1"
-        android:layout_toRightOf="@+id/spinner1" />
-
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/spinner2"
-        android:layout_toRightOf="@+id/spinner2" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_alignLeft="@+id/spinner2"
-        android:text="@string/mes" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner2"
-        android:layout_toRightOf="@+id/spinner2"
-        android:text="@string/ano" />
-
-
 
     <Spinner
         android:id="@+id/spinner4"
@@ -113,7 +73,10 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/checkBox1"
         android:layout_alignBottom="@+id/checkBox1"
-        android:layout_alignLeft="@+id/spinner3"
+        android:layout_alignTop="@id/checkBox1"
+        android:layout_below="@id/dataCompra"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/checkBox1"
         android:visibility="invisible" />
 
     <TextView
@@ -131,10 +94,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/checkBox1"
         android:layout_below="@+id/checkBox1"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/textView1" />
+        android:layout_marginTop="10dp" />
 
-        <Button
+    <Button
         android:id="@+id/button2"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
@@ -143,5 +105,5 @@
         android:layout_marginTop="15dp"
         android:onClick="incluir"
         android:text="@string/incluir" />
-    
+
 </RelativeLayout>

@@ -19,5 +19,10 @@
     <string name="title_activity_ver_fatura">Faturei - Ver Fatura</string>
     <string name="limpar">limpar</string>
     <string name="ok">OK</string>
+    <string name="configuracoes">Configurações</string>
+    <string name="title_activity_configuracoes">Faturei - Configuracoes</string>
+    <string name="adicionarcartao">Adicionar Cartao</string>
+    <string name="nomeCartao">Nome do Cartão</string>
+    <string name="vencimento">Vencimento</string>
 
 </resources>
