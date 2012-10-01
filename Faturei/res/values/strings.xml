@@ -26,5 +26,9 @@
     <string name="vencimento">Vencimento</string>
     <string name="excluir">Excluir</string>
     <string name="excluircartao"><b>Excluir Cartao</b></string>
+    <string name="dataFechamento">Data de Fechamento da Fatura</string>
+    <string name="diaFechamento">Dia de Fechamento da Fatura</string>
+    <string name="menos">-</string>
+    <string name="mais">+</string>
 
 </resources>

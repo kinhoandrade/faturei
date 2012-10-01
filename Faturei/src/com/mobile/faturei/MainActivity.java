@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
 	
 	static List<Compra> compras;
 	private static DBAdapter db;
+	
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,6 @@ public class MainActivity extends Activity {
         }catch(Exception e){
         	e.printStackTrace();        	
         }
-        
         setContentView(R.layout.activity_main);
     }
 

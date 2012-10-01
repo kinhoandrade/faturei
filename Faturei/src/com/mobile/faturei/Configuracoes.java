@@ -7,28 +7,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class Configuracoes extends Activity {
 	private Button btnVoltar;
-	private DatePicker vencimentoDatePicker;
+	private EditText diaVencimento;
 	private EditText nomeCartao;
 	private Spinner cartoes;
     private String array_spinner[];
+    private int dia;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes);
         btnVoltar = (Button) findViewById(R.id.voltarConfiguracoes);
-        vencimentoDatePicker = (DatePicker) findViewById(R.id.vencimentoDatePicker);
         nomeCartao = (EditText) findViewById(R.id.putNomeCartao);
+        diaVencimento = (EditText)findViewById(R.id.diaEditText);
+        dia = 1;
         
         carregaCartoes();
         
+        diaVencimento.setText("" + dia);
         btnVoltar.setOnClickListener(new View.OnClickListener() {public void onClick(View arg0) {finish();}});
     }
     
@@ -40,7 +42,7 @@ public class Configuracoes extends Activity {
                 return;
             }
                         
-            MainActivity.addCartao(nomeCartao.getText().toString(), vencimentoDatePicker.getYear() + "/" + vencimentoDatePicker.getMonth() + "/" + vencimentoDatePicker.getDayOfMonth());
+            MainActivity.addCartao(nomeCartao.getText().toString(), diaVencimento.getText().toString());
             
             Toast.makeText(getApplicationContext(), "INSERIDO COM SUCESSO", Toast.LENGTH_LONG).show();
             
@@ -81,5 +83,33 @@ public class Configuracoes extends Activity {
 		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
         cartoes.setAdapter(adapter);
         cartoes.setSelection(0);    	
+    }
+    
+    public void diminuiDia(View view){
+	    switch (view.getId()) {
+	    case R.id.menosDia:
+	    	dia = dia - 1;
+	    	
+	    	if(dia == 0){
+	    		dia = 31;
+	    		diaVencimento.setText("" + dia);
+	    	}else{
+	    		diaVencimento.setText("" +dia);
+	    	}	    	
+	    }
+    }
+    
+    public void somaDia(View view){
+	    switch (view.getId()) {
+	    case R.id.maisDia:
+	    	dia = dia + 1;
+	    	
+	    	if(dia == 32){
+	    		dia = 1;
+	    		diaVencimento.setText("" + dia);
+	    	}else{
+	    		diaVencimento.setText("" + dia);
+	    	}	    
+	    }
     }
 }

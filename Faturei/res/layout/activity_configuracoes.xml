@@ -13,7 +13,7 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@string/chip"
         android:src="@drawable/chip" />
-    
+
     <TextView
         android:id="@+id/adicionarCartao"
         android:layout_width="wrap_content"
@@ -53,16 +53,7 @@
         android:layout_alignLeft="@+id/putNomeCartao"
         android:layout_below="@+id/putNomeCartao"
         android:layout_marginTop="5dp"
-        android:text="@string/vencimento" />
-
-    <DatePicker
-        android:id="@+id/vencimentoDatePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/vencimento"
-        android:layout_below="@id/vencimento"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="5dp" />
+        android:text="@string/diaFechamento" />
 
     <Button
         android:id="@+id/voltarConfiguracoes"
@@ -75,16 +66,45 @@
         android:text="@string/voltar" />
 
     <Button
+        android:id="@+id/menosDia"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/vencimento"
+        android:layout_below="@+id/vencimento"
+        android:onClick="diminuiDia"
+        android:text="@string/menos" />
+
+    <EditText
+        android:id="@+id/diaEditText"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/menosDia"
+        android:layout_toRightOf="@+id/menosDia"
+        android:clickable="false"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/maisDia"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vencimento"
+        android:layout_toRightOf="@+id/diaEditText"
+        android:onClick="somaDia"
+        android:text="@string/mais" />
+    
+    <Button
         android:id="@+id/okConfig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/vencimentoDatePicker"
-        android:layout_below="@+id/vencimentoDatePicker"
+        android:layout_alignLeft="@id/menosDia"
+        android:layout_below="@id/menosDia"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:onClick="incluirCartao"
         android:text="@string/ok" />
-    
+
     <TextView
         android:id="@+id/excluirCartaoText"
         android:layout_width="wrap_content"
@@ -95,7 +115,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/excluircartao" />
-    
+
     <Spinner
         android:id="@+id/cartoesLista"
         android:layout_width="220dp"

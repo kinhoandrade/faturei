@@ -91,7 +91,7 @@ public class IncluirCompra extends Activity {
             
             if(!parcelado.isChecked()){
 	            Compra compra = new Compra();
-	            String data = dataCompra.getDayOfMonth() + "/" + dataCompra.getMonth() + "/" + dataCompra.getYear();
+	            String data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + 1) + "/" + dataCompra.getYear();
 	            compra.setData( data );
 	            compra.setDescricao("A vista");
 	            if(cartoes.size() < 1){
@@ -109,7 +109,12 @@ public class IncluirCompra extends Activity {
             	
             	for (int i = 0; i < qtdParcelas; i ++){
 		            Compra compra = new Compra();
-		            String data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + i)  + "/" + dataCompra.getYear();
+		            String data = "";
+		            if (dataCompra.getMonth() + i > 12){
+		            	data = dataCompra.getDayOfMonth() + "/" + ((dataCompra.getMonth()-12) + 1 + i)  + "/" + (dataCompra.getYear() + 1);
+		            }else{
+		            	data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + 1 + i)  + "/" + dataCompra.getYear();
+		            }
 		            compra.setData( data );
 		            compra.setDescricao((i + 1) + " de " + qtdParcelas );
 		            if(cartoes.size() < 1){
