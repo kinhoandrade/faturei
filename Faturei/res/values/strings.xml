@@ -30,5 +30,6 @@
     <string name="diaFechamento">Dia de Fechamento da Fatura</string>
     <string name="menos">-</string>
     <string name="mais">+</string>
+    <string name="excluirCompra"><b>Excluir Compra</b></string>
 
 </resources>

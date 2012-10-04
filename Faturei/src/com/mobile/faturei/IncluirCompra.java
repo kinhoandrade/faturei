@@ -19,6 +19,7 @@ import com.mobile.entidades.Compra;
 
 public class IncluirCompra extends Activity {
 	private EditText valor;
+	private EditText descricao;
 	private TextView vezes;
 	private Spinner parcelas;
 	private DatePicker dataCompra;
@@ -34,6 +35,7 @@ public class IncluirCompra extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incluir_compra);
         valor = (EditText) findViewById(R.id.editText1);
+        descricao = (EditText) findViewById(R.id.descricaoEditText);
         vezes = (TextView) findViewById(R.id.textView5);
         btnVoltar = (Button) findViewById(R.id.button1);
         dataCompra = (DatePicker) findViewById(R.id.dataCompra);
@@ -93,7 +95,12 @@ public class IncluirCompra extends Activity {
 	            Compra compra = new Compra();
 	            String data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + 1) + "/" + dataCompra.getYear();
 	            compra.setData( data );
-	            compra.setDescricao("A vista");
+	            compra.setParcelas("A vista");
+	            if (descricao.getText().length() > 0) {
+	            	compra.setDescricao(descricao.getText().toString());
+	            }else{
+	            	compra.setDescricao("");
+	            }
 	            if(cartoes.size() < 1){
 	            	MainActivity.addCartao("DEFAULT", data);
 	            	compra.setCartao("DEFAULT");
@@ -116,7 +123,12 @@ public class IncluirCompra extends Activity {
 		            	data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + 1 + i)  + "/" + dataCompra.getYear();
 		            }
 		            compra.setData( data );
-		            compra.setDescricao((i + 1) + " de " + qtdParcelas );
+		            compra.setParcelas((i + 1) + " de " + qtdParcelas );
+		            if (descricao.getText().length() > 0) {
+		            	compra.setDescricao(descricao.getText().toString());
+		            }else{
+		            	compra.setDescricao("");
+		            }
 		            if(cartoes.size() < 1){
 		            	MainActivity.addCartao("DEFAULT", data);
 		            	compra.setCartao("DEFAULT");
@@ -136,7 +148,8 @@ public class IncluirCompra extends Activity {
             
             parcelado.setChecked(false);
             parcelas.setSelection(0);       
-            valor.setText(null);
+            valor.setText(null);  
+            descricao.setText(null);
 	        break;
         }
       }

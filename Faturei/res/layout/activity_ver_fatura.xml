@@ -33,15 +33,6 @@
         android:layout_marginRight="15dp"
         android:text="@string/voltar" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:onClick="limpar"
-        android:text="@string/limpar" />
-
     <Spinner
         android:id="@+id/spinnercartoes"
         android:layout_width="165dp"

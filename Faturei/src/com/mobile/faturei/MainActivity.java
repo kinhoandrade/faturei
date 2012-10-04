@@ -28,8 +28,24 @@ public class MainActivity extends Activity {
         }catch(Exception e){
         	e.printStackTrace();        	
         }
+
+        //dropTables();
+
         setContentView(R.layout.activity_main);
     }
+	
+	@SuppressWarnings("unused")
+	private void dropTables(){
+		try{
+			db = db.open();
+			db.dropTables();
+		}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	finally{
+    		db.close();
+    	}		
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,9 +99,12 @@ public class MainActivity extends Activity {
 	    	cursor.moveToFirst();
 	    	while (cursor.isAfterLast() == false){
 	    		System.out.println(cursor.getString(cursor.getColumnIndex("valor")) + cursor.getString(cursor.getColumnIndex("data")) + cursor.getString(cursor.getColumnIndex("descricao")) + cursor.getString(cursor.getColumnIndex("cartao")));
+	    		String id = cursor.getString(cursor.getColumnIndex("_id"));
+	    		compraAux.setId(Integer.parseInt(id));
 	    		compraAux.setValor(Double.parseDouble(cursor.getString(cursor.getColumnIndex("valor"))));
 	    		compraAux.setData(cursor.getString(cursor.getColumnIndex("data")));
 	    		compraAux.setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
+	    		compraAux.setParcelas(cursor.getString(cursor.getColumnIndex("parcelas")));
 	    		compraAux.setCartao(cursor.getString(cursor.getColumnIndex("cartao")));
 	    		comprasAux.add(compraAux);
 	    		compraAux = new Compra();
@@ -128,7 +147,7 @@ public class MainActivity extends Activity {
 	public static void addCompra(Compra compra){
 		try{
 			db = db.open();
-			db.insertCompra(compra.getValor().toString(), compra.getData(), compra.getCartao(), compra.getDescricao());
+			db.insertCompra(compra.getValor().toString(), compra.getData(), compra.getCartao(), compra.getDescricao(), compra.getParcelas());
 		}catch(Exception e){
     		e.printStackTrace();
     	}
@@ -137,10 +156,10 @@ public class MainActivity extends Activity {
     	}
 	}
 	
-	public static void addCartao(String nome, String vencimento){
+	public static void addCartao(String nome, String fechamento){
 		try{
 			db = db.open();
-			db.insertCartao(nome, vencimento);
+			db.insertCartao(nome, fechamento);
 		}catch(Exception e){
     		e.printStackTrace();
     	}
@@ -153,6 +172,18 @@ public class MainActivity extends Activity {
 		try{
 			db = db.open();
 			db.deleteCartao(nome);
+		}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	finally{
+    		db.close();
+    	}
+	}
+	
+	public static void removeCompra(String id){
+		try{
+			db = db.open();
+			db.deleteCompra(id);
 		}catch(Exception e){
     		e.printStackTrace();
     	}

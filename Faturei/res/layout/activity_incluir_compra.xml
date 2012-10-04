@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/imageView1"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/voltar" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/valor" />
 
@@ -40,7 +40,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/imageView1"
         android:layout_below="@id/textView4"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="numberDecimal" >
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/dataCompra"
         android:layout_below="@id/dataCompra"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:onClick="parcelado"
         android:text="@string/parcelado" />
 
@@ -90,19 +90,30 @@
 
     <Spinner
         android:id="@+id/spinner5"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/checkBox1"
         android:layout_below="@+id/checkBox1"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="15dp" />
 
+    <EditText
+        android:id="@+id/descricaoEditText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_below="@+id/spinner5"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="text" />
+    
     <Button
         android:id="@+id/button2"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/checkBox1"
-        android:layout_below="@id/spinner5"
-        android:layout_marginTop="15dp"
+        android:layout_below="@id/descricaoEditText"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="11dp"
         android:onClick="incluir"
         android:text="@string/incluir" />
 

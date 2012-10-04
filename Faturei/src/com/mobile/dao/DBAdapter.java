@@ -15,10 +15,11 @@ public class DBAdapter
     public static final String KEY_DATA = "data";
     public static final String KEY_CARTAO = "cartao";
     public static final String KEY_DESCRICAO = "descricao";
+    public static final String KEY_PARCELAS = "parcelas";
 
     public static final String KEY_ROWID2 = "_id";
     public static final String KEY_CARTAO2 = "cartao";
-    public static final String KEY_VENCIMENTO = "vencimento";
+    public static final String KEY_FECHAMENTO = "fechamento";
     private static final String TAG = "DBAdapter";
     
     private static final String DATABASE_NAME = "faturei";
@@ -28,12 +29,12 @@ public class DBAdapter
 
     private static final String DATABASE_CREATE =
         "create table if not exists compras (_id integer primary key autoincrement, "
-        + "valor text not null, data text not null, descricao text not null, " 
+        + "valor text not null, data text not null, descricao text, parcelas text," 
         + "cartao text not null);";
     
     private static final String DATABASE_CREATE2 =
         "create table if not exists cartoes (_id integer primary key autoincrement, "
-        + "cartao text not null, vencimento);";
+        + "cartao text not null, fechamento text not null);";
         
     private final Context context;  
     
@@ -67,9 +68,15 @@ public class DBAdapter
                   + " to "
                   + newVersion + ", which will destroy all old data");
             db.execSQL("DROP TABLE IF EXISTS compras");
+            db.execSQL("DROP TABLE IF EXISTS cartoes");
             onCreate(db);
         }
     }    
+    
+    public void dropTables(){
+        db.execSQL("DROP TABLE IF EXISTS compras");    	
+        db.execSQL("DROP TABLE IF EXISTS cartoes");
+    }
     
     //---opens the database---
     public DBAdapter open() throws SQLException 
@@ -84,7 +91,7 @@ public class DBAdapter
         DBHelper.close();
     }
     
-	public long insertCompra(String valor, String data, String cartao, String descricao){
+	public long insertCompra(String valor, String data, String cartao, String descricao, String parcelas){
     	long retorno = 0;
     	try{
 	        ContentValues initialValues = new ContentValues();
@@ -92,6 +99,7 @@ public class DBAdapter
 	        initialValues.put(KEY_DATA, data);
 	        initialValues.put(KEY_CARTAO, cartao);
 	        initialValues.put(KEY_DESCRICAO, descricao);
+	        initialValues.put(KEY_PARCELAS, parcelas);	        
 	        retorno = db.insert(DATABASE_TABLE, null, initialValues);
         }catch(Exception e){
         	e.printStackTrace();
@@ -101,12 +109,12 @@ public class DBAdapter
         return retorno;
     }
 	
-	public long insertCartao(String cartao, String vencimento){
+	public long insertCartao(String cartao, String fechamento){
     	long retorno = 0;
     	try{
 	        ContentValues initialValues = new ContentValues();
 	        initialValues.put(KEY_CARTAO2, cartao);
-	        initialValues.put(KEY_VENCIMENTO, vencimento);
+	        initialValues.put(KEY_FECHAMENTO, fechamento);
 	        retorno = db.insert(DATABASE_TABLE2, null, initialValues);
         }catch(Exception e){
         	e.printStackTrace();
@@ -121,9 +129,16 @@ public class DBAdapter
     {
         return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
+    
     public boolean deleteCartao(String cartao) 
     {
         return db.delete(DATABASE_TABLE2, KEY_CARTAO2 + "='" + cartao + "'", null) > 0;
+    }
+    
+    public int deleteCompra(String id) 
+    {
+    	return db.delete(DBAdapter.DATABASE_TABLE, "_id=?", new String[] { id });
+        //return db.delete(DATABASE_TABLE, KEY_CARTAO + "='" + cartao + "'" + " AND " + KEY_DATA + "='" + data + "'" + " AND " + KEY_VALOR + "='" + valor + "'", null) > 0;
     }
     
     public int deleteAll(){
@@ -137,7 +152,8 @@ public class DBAdapter
         		KEY_VALOR,
         		KEY_DATA,
                 KEY_CARTAO,
-                KEY_DESCRICAO}, 
+                KEY_DESCRICAO,
+                KEY_PARCELAS}, 
                 null, 
                 null, 
                 null, 
