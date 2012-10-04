@@ -51,10 +51,24 @@ public class Configuracoes extends Activity {
                 Toast.makeText(this, "Favor Inserir o nome do cartão", Toast.LENGTH_LONG).show();
                 return;
             }
-                        
-            MainActivity.addCartao(nomeCartao.getText().toString().toUpperCase(), diaFechamento.getText().toString());
+            boolean exists = false;
             
-            Toast.makeText(getApplicationContext(), "INSERIDO COM SUCESSO", Toast.LENGTH_LONG).show();
+            List<Cartao> listaCartoes = MainActivity.getCartoes();
+            
+            for (Cartao cartao : listaCartoes) {
+				if(cartao.getCartao().toString().equals(nomeCartao.getText().toString().toUpperCase())){
+					MainActivity.removeCartao(cartao.getCartao().toString());
+		            MainActivity.addCartao(nomeCartao.getText().toString().toUpperCase(), diaFechamento.getText().toString());
+		            Toast.makeText(getApplicationContext(), "CARTAO ALTERADO COM SUCESSO", Toast.LENGTH_LONG).show();
+		            exists = true;
+		            break;					
+				}					
+			}
+            
+            if(exists == false){
+            	MainActivity.addCartao(nomeCartao.getText().toString().toUpperCase(), diaFechamento.getText().toString());
+            	Toast.makeText(getApplicationContext(), "INSERIDO COM SUCESSO", Toast.LENGTH_LONG).show();
+            }
             
             nomeCartao.setText(null);
             carregaCartoes();
@@ -101,7 +115,7 @@ public class Configuracoes extends Activity {
         int i = 0;
         array_spinner= new String[cartoesLista.size()];
         for (Cartao cartao : cartoesLista) {
-			array_spinner[i] = cartao.getCartao();
+			array_spinner[i] = cartao.getCartao() + " - Dia de Vencimento: " + cartao.getFechamento();
         	i++;
 		}
         

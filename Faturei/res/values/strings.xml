@@ -31,5 +31,6 @@
     <string name="menos">-</string>
     <string name="mais">+</string>
     <string name="excluirCompra"><b>Excluir Compra</b></string>
+    <string name="adicionaralterarcartao">Adicionar/Alterar Cartão</string>
 
 </resources>
