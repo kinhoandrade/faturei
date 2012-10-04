@@ -35,22 +35,41 @@
 
     <Spinner
         android:id="@+id/spinnercartoes"
-        android:layout_width="165dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="14dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp" />
 
+    <Spinner
+        android:id="@+id/mesSpinner"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spinnercartoes"
+        android:layout_below="@+id/spinnercartoes"
+        android:layout_marginTop="5dp" />
+
     <Button
-        android:id="@+id/okfatura"
+        android:id="@+id/okMesButton"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinnercartoes"
-        android:layout_alignTop="@id/spinnercartoes"
+        android:layout_alignTop="@+id/mesSpinner"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/spinnercartoes"
-        android:onClick="verFaturaCartao"
+        android:layout_toRightOf="@id/mesSpinner"
+        android:onClick="filtraMes"
         android:text="@string/ok" />
+
+    <ListView
+        android:id="@+id/listaComprasListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/faturavoltar"
+        android:layout_alignLeft="@+id/mesSpinner"
+        android:layout_alignRight="@+id/faturavoltar"
+        android:layout_below="@+id/mesSpinner"
+        android:layout_marginTop="5dp" >
+
+    </ListView>
 
 </RelativeLayout>

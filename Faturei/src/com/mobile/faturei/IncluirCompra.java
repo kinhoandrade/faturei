@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobile.entidades.Cartao;
 import com.mobile.entidades.Compra;
 
 public class IncluirCompra extends Activity {
@@ -27,7 +28,7 @@ public class IncluirCompra extends Activity {
     private DecimalFormat df = new DecimalFormat("0.00");  
     private String array_spinner[];
     private Button btnVoltar;
-    private List<String> cartoes;
+    private List<Cartao> cartoes;
 
 
     @Override
@@ -63,8 +64,8 @@ public class IncluirCompra extends Activity {
         cartoes = MainActivity.getCartoes();
         int i = 0;
         array_spinner= new String[cartoes.size()];
-        for (String string : cartoes) {
-			array_spinner[i] = string;
+        for (Cartao cartao : cartoes) {
+			array_spinner[i] = cartao.getCartao();
         	i++;
 		}
         

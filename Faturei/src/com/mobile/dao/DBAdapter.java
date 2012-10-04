@@ -164,7 +164,8 @@ public class DBAdapter
     public Cursor getAllCartoes() 
     {
         return db.query(DATABASE_TABLE2, new String[] {
-                KEY_CARTAO}, 
+                KEY_CARTAO,
+                KEY_FECHAMENTO}, 
                 null, 
                 null, 
                 null, 

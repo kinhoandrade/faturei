@@ -12,11 +12,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.mobile.entidades.Cartao;
 import com.mobile.entidades.Compra;
 
 public class Configuracoes extends Activity {
 	private Button btnVoltar;
-	private EditText diaVencimento;
+	private EditText diaFechamento;
 	private EditText nomeCartao;
 	private Spinner cartoes;
     private String array_spinner[];
@@ -32,14 +33,14 @@ public class Configuracoes extends Activity {
         setContentView(R.layout.activity_configuracoes);
         btnVoltar = (Button) findViewById(R.id.voltarConfiguracoes);
         nomeCartao = (EditText) findViewById(R.id.putNomeCartao);
-        diaVencimento = (EditText)findViewById(R.id.diaEditText);
+        diaFechamento = (EditText)findViewById(R.id.diaEditText);
         compras = (Spinner) findViewById(R.id.spinnerCompras);
         dia = 1;
         
         carregaCartoes();
         carregaCompras();
         
-        diaVencimento.setText("" + dia);
+        diaFechamento.setText("" + dia);
         btnVoltar.setOnClickListener(new View.OnClickListener() {public void onClick(View arg0) {finish();}});
     }
     
@@ -51,7 +52,7 @@ public class Configuracoes extends Activity {
                 return;
             }
                         
-            MainActivity.addCartao(nomeCartao.getText().toString().toUpperCase(), diaVencimento.getText().toString());
+            MainActivity.addCartao(nomeCartao.getText().toString().toUpperCase(), diaFechamento.getText().toString());
             
             Toast.makeText(getApplicationContext(), "INSERIDO COM SUCESSO", Toast.LENGTH_LONG).show();
             
@@ -96,11 +97,11 @@ public class Configuracoes extends Activity {
     }
     
     public void carregaCartoes(){        
-        List<String> cartoesLista = MainActivity.getCartoes();
+        List<Cartao> cartoesLista = MainActivity.getCartoes();
         int i = 0;
         array_spinner= new String[cartoesLista.size()];
-        for (String string : cartoesLista) {
-			array_spinner[i] = string;
+        for (Cartao cartao : cartoesLista) {
+			array_spinner[i] = cartao.getCartao();
         	i++;
 		}
         
@@ -135,9 +136,9 @@ public class Configuracoes extends Activity {
 	    	
 	    	if(dia == 0){
 	    		dia = 31;
-	    		diaVencimento.setText("" + dia);
+	    		diaFechamento.setText("" + dia);
 	    	}else{
-	    		diaVencimento.setText("" +dia);
+	    		diaFechamento.setText("" +dia);
 	    	}	    	
 	    }
     }
@@ -149,9 +150,9 @@ public class Configuracoes extends Activity {
 	    	
 	    	if(dia == 32){
 	    		dia = 1;
-	    		diaVencimento.setText("" + dia);
+	    		diaFechamento.setText("" + dia);
 	    	}else{
-	    		diaVencimento.setText("" + dia);
+	    		diaFechamento.setText("" + dia);
 	    	}	    
 	    }
     }

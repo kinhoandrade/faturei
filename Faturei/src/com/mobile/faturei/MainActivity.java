@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.mobile.dao.DBAdapter;
+import com.mobile.entidades.Cartao;
 import com.mobile.entidades.Compra;
 
 public class MainActivity extends Activity {
@@ -98,7 +99,6 @@ public class MainActivity extends Activity {
 	    	
 	    	cursor.moveToFirst();
 	    	while (cursor.isAfterLast() == false){
-	    		System.out.println(cursor.getString(cursor.getColumnIndex("valor")) + cursor.getString(cursor.getColumnIndex("data")) + cursor.getString(cursor.getColumnIndex("descricao")) + cursor.getString(cursor.getColumnIndex("cartao")));
 	    		String id = cursor.getString(cursor.getColumnIndex("_id"));
 	    		compraAux.setId(Integer.parseInt(id));
 	    		compraAux.setValor(Double.parseDouble(cursor.getString(cursor.getColumnIndex("valor"))));
@@ -120,18 +120,26 @@ public class MainActivity extends Activity {
 		return comprasAux;
 	}
     
-    public static List<String> getCartoes() {
-    	List<String> cartoes = new ArrayList<String>();
+	public static List<Cartao> getCartoes() {
+    	List<Cartao> cartoes = new ArrayList<Cartao>();
+    	List<String> nomesCartoes = new ArrayList<String>();
     	try{
 	    	db = db.open();
 	    	Cursor cursor = db.getAllCartoes();
-	    	String cartao = "";
+	    	String nome = "";
+	    	String fechamento = "";
 	    	
 	    	cursor.moveToFirst();
 	    	while (cursor.isAfterLast() == false){
-	    		cartao = (cursor.getString(cursor.getColumnIndex("cartao")));
-	    		if(!cartoes.contains(cartao))
+		    	Cartao cartao = new Cartao();
+	    		nome = (cursor.getString(cursor.getColumnIndex("cartao")));
+	    		fechamento = (cursor.getString(cursor.getColumnIndex("fechamento")));
+	    		cartao.setCartao(nome);
+	    		cartao.setFechamento(fechamento);
+	    		if(!nomesCartoes.contains(nome)){
+	    			nomesCartoes.add(nome);
 	    			cartoes.add(cartao);
+	    		}
 	    	    cursor.moveToNext();
 	    	}
     	}catch(Exception e){
