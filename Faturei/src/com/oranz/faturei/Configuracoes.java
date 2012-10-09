@@ -1,4 +1,4 @@
-package com.mobile.faturei;
+package com.oranz.faturei;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -12,8 +12,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.mobile.entidades.Cartao;
-import com.mobile.entidades.Compra;
+import com.oranz.faturei.R;
+import com.oranz.entidades.Cartao;
+import com.oranz.entidades.Compra;
 
 public class Configuracoes extends Activity {
 	private Button btnVoltar;
@@ -84,8 +85,11 @@ public class Configuracoes extends Activity {
         		return;
         	}
         	
-        	MainActivity.removeCartao(cartoes.getSelectedItem().toString());
-        	
+        	String selecionado = "";
+        	selecionado = cartoes.getSelectedItem().toString();
+        	String[] campos = selecionado.split("-"); 
+        	MainActivity.removeCartao(campos[0]);        	
+        	        	
         	Toast.makeText(getApplicationContext(), "EXCLUIDO COM SUCESSO", Toast.LENGTH_LONG).show();
         	
         	carregaCartoes();
@@ -102,8 +106,7 @@ public class Configuracoes extends Activity {
 
         	String selecionado = "";
         	selecionado = compras.getSelectedItem().toString();
-        	String[] campos = new String[5];
-        	campos = selecionado.split("_");
+        	String[] campos = selecionado.split("-"); 
         	MainActivity.removeCompra(campos[0]);        	
         	
         	carregaCompras();
@@ -115,7 +118,7 @@ public class Configuracoes extends Activity {
         int i = 0;
         array_spinner= new String[cartoesLista.size()];
         for (Cartao cartao : cartoesLista) {
-			array_spinner[i] = cartao.getCartao() + " - Dia de Vencimento: " + cartao.getFechamento();
+			array_spinner[i] = ( "" + cartao.getId() + "- " + cartao.getCartao() + " - Dia de Vencimento: " + cartao.getFechamento());
         	i++;
 		}
         
@@ -133,7 +136,7 @@ public class Configuracoes extends Activity {
         array_spinner= new String[comprasLista.size()];
         for (Compra compra : comprasLista) {
     		double compraValor = compra.getValor();
-			array_spinner[i] = ( "" + compra.getId() + "_" + compra.getCartao().toString() + "_" + compra.getData() + "_" + df.format(compraValor) + "_" + compra.getDescricao());
+			array_spinner[i] = ( "" + compra.getId() + "-" + compra.getCartao().toString() + "_" + compra.getData() + "_" + df.format(compraValor) + "_" + compra.getDescricao());
         	i++;
 		}
         

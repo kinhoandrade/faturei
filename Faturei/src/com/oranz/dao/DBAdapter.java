@@ -1,4 +1,4 @@
-package com.mobile.dao;
+package com.oranz.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -132,7 +132,7 @@ public class DBAdapter
     
     public boolean deleteCartao(String cartao) 
     {
-        return db.delete(DATABASE_TABLE2, KEY_CARTAO2 + "='" + cartao + "'", null) > 0;
+        return db.delete(DATABASE_TABLE2, KEY_ROWID2 + "='" + cartao + "'", null) > 0;
     }
     
     public int deleteCompra(String id) 
@@ -164,6 +164,7 @@ public class DBAdapter
     public Cursor getAllCartoes() 
     {
         return db.query(DATABASE_TABLE2, new String[] {
+        		KEY_ROWID2,
                 KEY_CARTAO,
                 KEY_FECHAMENTO}, 
                 null, 

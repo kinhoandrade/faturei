@@ -1,6 +1,7 @@
-package com.mobile.entidades;
+package com.oranz.entidades;
 
 public class Cartao {
+	private int id;
 	private String cartao;
 	private String fechamento;
 	
@@ -18,5 +19,11 @@ public class Cartao {
 	}
 	public void setFechamento(String fechamento) {
 		this.fechamento = fechamento;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

@@ -1,4 +1,4 @@
-package com.mobile.faturei;
+package com.oranz.faturei;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -15,8 +15,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobile.entidades.Cartao;
-import com.mobile.entidades.Compra;
+import com.oranz.faturei.R;
+import com.oranz.entidades.Cartao;
+import com.oranz.entidades.Compra;
 
 public class IncluirCompra extends Activity {
 	private EditText valor;

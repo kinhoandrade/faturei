@@ -1,4 +1,4 @@
-package com.mobile.faturei;
+package com.oranz.faturei;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -13,18 +13,17 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.oranz.faturei.R;
+import com.oranz.entidades.Cartao;
+import com.oranz.entidades.Compra;
 
-import com.mobile.entidades.Cartao;
-import com.mobile.entidades.Compra;
-
-@SuppressWarnings("unused")
 public class VerFatura extends Activity {
 	private Button btnVoltar;
-	private TextView comprasView;
 	private Spinner cartoes;
 	private Spinner mesSpinner;
     private String array_spinner[];
 	private ListView listaComprasListView;
+	private TextView totalView;
     private DecimalFormat df = new DecimalFormat("0.00"); 
 	
     @Override
@@ -32,8 +31,8 @@ public class VerFatura extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_fatura);
         btnVoltar = (Button) findViewById(R.id.faturavoltar);
-        comprasView = (TextView) findViewById(R.id.compras);
-        listaComprasListView = (ListView) findViewById(R.id.listaComprasListView);        
+        listaComprasListView = (ListView) findViewById(R.id.listaComprasListView);
+        totalView = (TextView) findViewById(R.id.totalTextView);
         List<Cartao> listaCartoes = MainActivity.getCartoes();
         
         array_spinner= new String[listaCartoes.size()+1];
@@ -78,7 +77,7 @@ public class VerFatura extends Activity {
         try {
            	listaFiltrado();
         }catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "ERROR: " + e.toString(), Toast.LENGTH_LONG).show();
         }
     }
     
@@ -101,11 +100,12 @@ public class VerFatura extends Activity {
     		mesEscolhidoInt = Integer.parseInt(mesEscolhido);
     	}
     	
+    	List<Compra> listaComprasList = new ArrayList<Compra>();
+    	
         double total = 0.0;
     	
         listaCompras = MainActivity.getCompras();
         listaCartao = MainActivity.getCartoes();
-		comprasView.setText("");
     	for (Compra compraAux : listaCompras) {
     		if(cartaoEscolhido.equals(compraAux.getCartao().toString()) || cartaoEscolhido.equals("TODOS")){
     			String dataCompra = compraAux.getData().toString();
@@ -130,13 +130,23 @@ public class VerFatura extends Activity {
     			
     			if( ((mesEscolhidoInt == mesCompraInt + 1 ) && diaCompraInt > diaFechamentoCartao ) || ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt <= diaFechamentoCartao ) || mesEscolhido.equals("TODOS")){
     				total = total + Double.parseDouble(df.format(compraAux.getValor()));
-    				double compraValor = compraAux.getValor();
-    				comprasView.setText(comprasView.getText().toString() + "[" + compraAux.getCartao().toString() + "] " + compraAux.getData() + " = R$ " + df.format(compraValor) + " - " + compraAux.getDescricao() + " - " + compraAux.getParcelas() + "\n");
-    				//listaComprasListView.addView(comprasView);
+    				listaComprasList.add(compraAux);
     			}
     		}
+		}  	
+
+    	int listaSize = listaComprasList.size();
+        String[] values = new String[listaSize];// { "Android", "iPhone", "WindowsMobile","Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X","Linux", "OS/2" };
+
+        for (int i = 0; i < listaSize; i++) {
+			values[i]=("[" + listaComprasList.get(i).getCartao().toString() + "] " + listaComprasList.get(i).getData() + " = R$ " + df.format(listaComprasList.get(i).getValor()) + " - " + listaComprasList.get(i).getDescricao() + " - " + listaComprasList.get(i).getParcelas() + "\n");
 		}
-    	comprasView.setText(comprasView.getText() + "\nTotal = R$ " + df.format(total)); 
-    	
+
+        totalView.setVisibility(1);
+        totalView.setText("\nTotal = R$" + df.format(total));
+        
+        
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        listaComprasListView.setAdapter(adapter3);
     }
 }

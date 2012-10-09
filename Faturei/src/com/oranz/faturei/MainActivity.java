@@ -1,4 +1,4 @@
-package com.mobile.faturei;
+package com.oranz.faturei;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.mobile.dao.DBAdapter;
-import com.mobile.entidades.Cartao;
-import com.mobile.entidades.Compra;
+import com.oranz.faturei.R;
+import com.oranz.dao.DBAdapter;
+import com.oranz.entidades.Cartao;
+import com.oranz.entidades.Compra;
 
 public class MainActivity extends Activity {
 	
@@ -132,6 +133,7 @@ public class MainActivity extends Activity {
 	    	cursor.moveToFirst();
 	    	while (cursor.isAfterLast() == false){
 		    	Cartao cartao = new Cartao();
+		    	cartao.setId(cursor.getInt(cursor.getColumnIndex("_id")));
 	    		nome = (cursor.getString(cursor.getColumnIndex("cartao")));
 	    		fechamento = (cursor.getString(cursor.getColumnIndex("fechamento")));
 	    		cartao.setCartao(nome);

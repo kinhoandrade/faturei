@@ -1,4 +1,4 @@
-package com.mobile.entidades;
+package com.oranz.entidades;
 
 public class Compra {
 	private int id;

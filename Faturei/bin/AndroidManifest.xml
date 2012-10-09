@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mobile.faturei"
+    package="com.oranz.faturei"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -31,7 +31,7 @@
             android:configChanges="orientation|keyboardHidden"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mobile.faturei.MainActivity" />
+                android:value="com.oranz.faturei.MainActivity" />
         </activity>
         <activity
             android:name=".VerFatura"
@@ -40,16 +40,16 @@
             android:configChanges="orientation|keyboardHidden"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mobile.faturei.MainActivity" />
+                android:value="com.oranz.faturei.MainActivity" />
         </activity>
         <activity
-            android:name=".Configuracoes"
+            android:name="com.oranz.faturei.Configuracoes"
             android:label="@string/title_activity_configuracoes"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mobile.faturei.MainActivity" />
+                android:value="com.oranz.faturei.MainActivity" />
         </activity>
     </application>
 
