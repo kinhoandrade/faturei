@@ -65,7 +65,6 @@ public class IncluirCompra extends Activity {
         parcelas.setAdapter(adapter);
         parcelas.setSelection(0);
 
-
         cartoes = MainActivity.getCartoes();
         int i = 0;
         array_spinner= new String[cartoes.size()];
@@ -76,13 +75,16 @@ public class IncluirCompra extends Activity {
         
         cartao = (Spinner) findViewById(R.id.spinner5);
         
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter5 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
+        //@SuppressWarnings({ "rawtypes", "unchecked" })
+		//ArrayAdapter adapter5 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner);
+        adapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cartao.setAdapter(adapter5);
         cartao.setSelection(0);
  	
         Intent intent = getIntent();
-        String origin = intent.getStringExtra("origin");
+        String origin = ""; 
+        origin = intent.getStringExtra("origin");
         // Binding Click event to Button
         if(origin.equalsIgnoreCase("fatura")){
         	btnVoltar.setOnClickListener(new View.OnClickListener() {public void onClick(View arg0) {Toast.makeText(getApplicationContext(), "NECESSÁRIO ATUALIZAR A TELA DE FATURA", Toast.LENGTH_LONG).show(); finish();}});
@@ -97,19 +99,16 @@ public class IncluirCompra extends Activity {
       }
     
     // get the selected dropdown list value
-    public void addListenerOnButton() {
-   
-  	parcelas = (Spinner) findViewById(R.id.spinner4);
-  	btnIncluir = (Button) findViewById(R.id.button2);
-   
-  	btnIncluir.setOnClickListener(new OnClickListener() {
-   
-  	  @Override
-  	  public void onClick(View v) {   
-  	    Toast.makeText(getApplicationContext(),"OnClickListener : " + "\nSpinner 1 : "+ String.valueOf(parcelas.getSelectedItem()),	Toast.LENGTH_SHORT).show();
-  	  }
-   
-  	});
+    public void addListenerOnButton() {   
+    	parcelas = (Spinner) findViewById(R.id.spinner4);
+    	cartao = (Spinner) findViewById(R.id.spinner5);
+	  	btnIncluir = (Button) findViewById(R.id.button2);
+	  	btnIncluir.setOnClickListener(new OnClickListener() {
+		  	@Override
+		  	public void onClick(View v) {   
+		  	    Toast.makeText(getApplicationContext(),"OnClickListener : " + "\nSpinner 1 : "+ String.valueOf(parcelas.getSelectedItem()),	Toast.LENGTH_SHORT).show();
+		  	  }
+	  	});
     }
     
     public void incluir(View view) {

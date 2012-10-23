@@ -123,11 +123,10 @@ public class Configuracoes extends Activity {
 		}
         
         cartoes = (Spinner) findViewById(R.id.cartoesLista);
-        
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
+  		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cartoes.setAdapter(adapter);
-        cartoes.setSelection(0);    	
+        cartoes.setSelection(0);
     }
     
     public void carregaCompras(){ 
@@ -139,11 +138,10 @@ public class Configuracoes extends Activity {
 			array_spinner[i] = ( "" + compra.getId() + "-" + compra.getCartao().toString() + "_" + compra.getData() + "_" + df.format(compraValor) + "_" + compra.getDescricao());
         	i++;
 		}
-        
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         compras.setAdapter(adapter);
-        compras.setSelection(0);    	
+        compras.setSelection(0);
     }
     
     public void diminuiDia(View view){

@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.oranz.faturei.R;
 import com.oranz.dao.DBAdapter;
@@ -51,8 +53,18 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
+        boolean result = super.onCreateOptionsMenu(menu);
+        menu.add(0, 1, Menu.NONE, R.string.info );
+        return result;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ( item.getItemId() ) {
+          case 1:   	
+              Toast.makeText(this, "Faturei v1.0\nDesenvolvido por Oranz", Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
     
     public void incluirCompra(View view){    	

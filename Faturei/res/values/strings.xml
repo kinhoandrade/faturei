@@ -40,5 +40,7 @@
         <item>1</item>
         <item>2</item>
     </integer-array>
+    <string name="semcompras">Sem Histórico de Compras</string>
+    <string name="info">Info</string>
 
 </resources>

@@ -46,9 +46,9 @@ public class VerFatura extends ListActivity {
             array_spinner[i] = cartao.getCartao();
             i++;
 		}
-        cartoes = (Spinner) findViewById(R.id.spinnercartoes);
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
+        cartoes = (Spinner) findViewById(R.id.spinnercartoes);        
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cartoes.setAdapter(adapter);
         cartoes.setSelection(0);
         
@@ -66,9 +66,9 @@ public class VerFatura extends ListActivity {
         array_spinner[10] = "10-Outubro";
         array_spinner[11] = "11-Novembro";
         array_spinner[12] = "12-Dezembro";
-        mesSpinner = (Spinner) findViewById(R.id.mesSpinner);
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
+        mesSpinner = (Spinner) findViewById(R.id.mesSpinner);        
+		ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner);
+		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mesSpinner.setAdapter(adapter2);
         mesSpinner.setSelection(0);
         
