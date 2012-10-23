@@ -50,27 +50,29 @@
         android:layout_toRightOf="@id/mesSpinner"
         android:onClick="filtraMes"
         android:text="@string/ok" />
-
-    <ListView
-        android:id="@+id/listaComprasListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/faturavoltar"
-        android:layout_alignLeft="@+id/mesSpinner"
-        android:layout_alignRight="@+id/faturavoltar"
-        android:layout_below="@+id/mesSpinner"
-        android:layout_marginTop="5dp" >
-
-    </ListView>
-
+    
     <TextView
         android:id="@+id/totalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/faturavoltar"
         android:layout_alignBottom="@+id/faturavoltar"
-        android:layout_alignLeft="@+id/listaComprasListView"
         android:text="@string/total"
         android:visibility="invisible" />
+
+  <ListView android:id="@+id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/faturavoltar"
+        android:layout_alignLeft="@+id/mesSpinner"
+        android:layout_alignRight="@+id/faturavoltar"
+        android:layout_below="@+id/mesSpinner"
+        android:layout_marginTop="5dp" />
+
+  <TextView android:id="@+id/android:empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/mesSpinner"
+        android:text="@string/teste"/>
 
 </RelativeLayout>

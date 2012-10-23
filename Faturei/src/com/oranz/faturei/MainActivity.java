@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
     public void incluirCompra(View view){    	
     	Intent nextScreen = new Intent(getApplicationContext(), IncluirCompra.class);
     	
+      	nextScreen.putExtra("origin", "main");
     	startActivity(nextScreen);
     }
     

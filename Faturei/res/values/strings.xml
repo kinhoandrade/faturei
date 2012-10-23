@@ -33,5 +33,12 @@
     <string name="excluirCompra"><b>Excluir Compra</b></string>
     <string name="adicionaralterarcartao">Adicionar/Alterar Cartão</string>
     <string name="total"><b>Total</b></string>
+    <string name="teste">Teste</string>
+    <color name="black">#000000</color>
+    <string name="refresh">Atualizar</string>
+    <integer-array name="parcelas">
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
 
 </resources>

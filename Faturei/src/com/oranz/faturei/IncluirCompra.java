@@ -4,8 +4,10 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,9 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.oranz.faturei.R;
 import com.oranz.entidades.Cartao;
 import com.oranz.entidades.Compra;
+import com.oranz.util.CustomOnItemSelectedListener;
 
 public class IncluirCompra extends Activity {
 	private EditText valor;
@@ -29,6 +31,7 @@ public class IncluirCompra extends Activity {
     private DecimalFormat df = new DecimalFormat("0.00");  
     private String array_spinner[];
     private Button btnVoltar;
+    private Button btnIncluir;
     private List<Cartao> cartoes;
 
 
@@ -40,6 +43,7 @@ public class IncluirCompra extends Activity {
         descricao = (EditText) findViewById(R.id.descricaoEditText);
         vezes = (TextView) findViewById(R.id.textView5);
         btnVoltar = (Button) findViewById(R.id.button1);
+        btnIncluir = (Button)  findViewById(R.id.button2);
         dataCompra = (DatePicker) findViewById(R.id.dataCompra);
  
         array_spinner= new String[12];
@@ -56,11 +60,11 @@ public class IncluirCompra extends Activity {
         array_spinner[10] = "11";
         array_spinner[11] = "12";
         parcelas = (Spinner) findViewById(R.id.spinner4);
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         parcelas.setAdapter(adapter);
         parcelas.setSelection(0);
-        
+
 
         cartoes = MainActivity.getCartoes();
         int i = 0;
@@ -76,10 +80,37 @@ public class IncluirCompra extends Activity {
 		ArrayAdapter adapter5 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
         cartao.setAdapter(adapter5);
         cartao.setSelection(0);
- 		
+ 	
+        Intent intent = getIntent();
+        String origin = intent.getStringExtra("origin");
         // Binding Click event to Button
-        btnVoltar.setOnClickListener(new View.OnClickListener() {public void onClick(View arg0) {finish();}});
+        if(origin.equalsIgnoreCase("fatura")){
+        	btnVoltar.setOnClickListener(new View.OnClickListener() {public void onClick(View arg0) {Toast.makeText(getApplicationContext(), "NECESSÁRIO ATUALIZAR A TELA DE FATURA", Toast.LENGTH_LONG).show(); finish();}});
+        }else{
+        	btnVoltar.setOnClickListener(new View.OnClickListener() {public void onClick(View arg0) {finish();}});
+        }
 	}
+    
+    public void addListenerOnSpinnerItemSelection() {
+    	parcelas = (Spinner) findViewById(R.id.spinner4);
+    	parcelas.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+      }
+    
+    // get the selected dropdown list value
+    public void addListenerOnButton() {
+   
+  	parcelas = (Spinner) findViewById(R.id.spinner4);
+  	btnIncluir = (Button) findViewById(R.id.button2);
+   
+  	btnIncluir.setOnClickListener(new OnClickListener() {
+   
+  	  @Override
+  	  public void onClick(View v) {   
+  	    Toast.makeText(getApplicationContext(),"OnClickListener : " + "\nSpinner 1 : "+ String.valueOf(parcelas.getSelectedItem()),	Toast.LENGTH_SHORT).show();
+  	  }
+   
+  	});
+    }
     
     public void incluir(View view) {
         switch (view.getId()) {

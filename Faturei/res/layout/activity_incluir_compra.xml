@@ -77,6 +77,8 @@
         android:layout_below="@id/dataCompra"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@id/checkBox1"
+        android:entries="@array/parcelas"
+        android:prompt="@string/no_vezes"
         android:visibility="invisible" />
 
     <TextView

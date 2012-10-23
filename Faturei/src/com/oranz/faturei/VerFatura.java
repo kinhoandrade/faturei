@@ -2,36 +2,40 @@ package com.oranz.faturei;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.oranz.faturei.R;
+
 import com.oranz.entidades.Cartao;
 import com.oranz.entidades.Compra;
 
-public class VerFatura extends Activity {
+public class VerFatura extends ListActivity {
 	private Button btnVoltar;
 	private Spinner cartoes;
 	private Spinner mesSpinner;
     private String array_spinner[];
-	private ListView listaComprasListView;
 	private TextView totalView;
     private DecimalFormat df = new DecimalFormat("0.00"); 
-	
+	ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
+    private SimpleAdapter notes;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_fatura);
         btnVoltar = (Button) findViewById(R.id.faturavoltar);
-        listaComprasListView = (ListView) findViewById(R.id.listaComprasListView);
         totalView = (TextView) findViewById(R.id.totalTextView);
         List<Cartao> listaCartoes = MainActivity.getCartoes();
         
@@ -68,6 +72,15 @@ public class VerFatura extends Activity {
         mesSpinner.setAdapter(adapter2);
         mesSpinner.setSelection(0);
         
+
+        notes = new SimpleAdapter( 
+ 				this, 
+ 				list,
+ 				R.layout.main_item_two_line_row,
+ 				new String[] { "line1","line2" },
+ 				new int[] { R.id.text1, R.id.text2 }  );
+        setListAdapter( notes );
+        
         verFatura();
         
         btnVoltar.setOnClickListener(new View.OnClickListener() {public void onClick(View arg0) {finish();}});
@@ -81,6 +94,14 @@ public class VerFatura extends Activity {
         }
     }
     
+    private void addItem(String first, String second) {
+  	  HashMap<String,String> item = new HashMap<String,String>();
+  	  item.put( "line1", first );
+  	  item.put( "line2", second);
+  	  list.add( item );
+      notes.notifyDataSetChanged();
+  	}
+    
     public void filtraMes(View view){
     	switch (view.getId()) {
 	        case R.id.okMesButton:
@@ -89,6 +110,7 @@ public class VerFatura extends Activity {
     }
     
     public void listaFiltrado(){
+    	list.clear();
     	List<Compra> listaCompras = new ArrayList<Compra>();
     	List<Cartao> listaCartao = new ArrayList<Cartao>();
     	String cartaoEscolhido = cartoes.getSelectedItem().toString();
@@ -139,14 +161,31 @@ public class VerFatura extends Activity {
         String[] values = new String[listaSize];// { "Android", "iPhone", "WindowsMobile","Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X","Linux", "OS/2" };
 
         for (int i = 0; i < listaSize; i++) {
-			values[i]=("[" + listaComprasList.get(i).getCartao().toString() + "] " + listaComprasList.get(i).getData() + " = R$ " + df.format(listaComprasList.get(i).getValor()) + " - " + listaComprasList.get(i).getDescricao() + " - " + listaComprasList.get(i).getParcelas() + "\n");
+			values[i]=("[" + listaComprasList.get(i).getCartao().toString() + "] " + listaComprasList.get(i).getData() + "\nR$ " + df.format(listaComprasList.get(i).getValor()) + " - " + listaComprasList.get(i).getDescricao() + " - " + listaComprasList.get(i).getParcelas() + "\n");
+			addItem(("[" + listaComprasList.get(i).getCartao().toString() + "] " + listaComprasList.get(i).getData()),("R$ " + df.format(listaComprasList.get(i).getValor()) + " - " + listaComprasList.get(i).getDescricao() + " - " + listaComprasList.get(i).getParcelas()));
 		}
 
         totalView.setVisibility(1);
-        totalView.setText("\nTotal = R$" + df.format(total));
-        
-        
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
-        listaComprasListView.setAdapter(adapter3);
+        totalView.setText("\nTotal = R$" + df.format(total));   
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+      boolean result = super.onCreateOptionsMenu(menu);
+      menu.add(0, 1, Menu.NONE, R.string.incluir_compra );
+      return result;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ( item.getItemId() ) {
+          case 1:   	
+          	Intent nextScreen = new Intent(getApplicationContext(), IncluirCompra.class);
+
+          	nextScreen.putExtra("origin", "fatura");
+        	startActivity(nextScreen);
+        }
+        listaFiltrado();
+        return super.onOptionsItemSelected(item);
     }
 }
