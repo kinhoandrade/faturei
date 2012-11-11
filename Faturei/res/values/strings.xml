@@ -42,5 +42,7 @@
     </integer-array>
     <string name="semcompras">Sem Histórico de Compras</string>
     <string name="info">Info</string>
+    <string name="faturaproxmes">Fatura para</string>
+    <color name="red">#FF0000</color>
 
 </resources>

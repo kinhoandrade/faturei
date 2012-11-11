@@ -1,6 +1,8 @@
 package com.oranz.faturei;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.oranz.faturei.R;
@@ -21,12 +24,16 @@ public class MainActivity extends Activity {
 	
 	static List<Compra> compras;
 	private static DBAdapter db;
+	private TextView faturaProxMes;
 	
-
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
         compras = new ArrayList<Compra>();
+        faturaProxMes = (TextView) findViewById(R.id.faturaTextView);
+        
         try{
         	db = new DBAdapter(getApplicationContext());        	
         }catch(Exception e){
@@ -35,7 +42,7 @@ public class MainActivity extends Activity {
 
         //dropTables();
 
-        setContentView(R.layout.activity_main);
+        calculaFatura();
     }
 	
 	@SuppressWarnings("unused")
@@ -133,6 +140,42 @@ public class MainActivity extends Activity {
    	
 		return comprasAux;
 	}
+    
+    public void calculaFatura(){
+    	List<Compra> compras = getCompras();
+        List<Cartao> listaCartao = MainActivity.getCartoes();
+        Calendar cal = Calendar.getInstance(); 
+        int mesEscolhidoInt = cal.get(Calendar.MONTH)+2;
+        double total = 0;
+        DecimalFormat df = new DecimalFormat("0.00"); 
+    	
+    	for (Compra compraAux : compras) {
+    			String dataCompra = compraAux.getData().toString();
+    			String cartaoCompra = compraAux.getCartao().toString();
+    			String[] dataArray = dataCompra.split("/");
+    			String diaCompra = dataArray[0];
+    			String mesCompra = dataArray[1];
+    			int diaFechamentoCartao = 0;
+    			
+    			for (Cartao cartaoAux : listaCartao) {
+					if(cartaoAux.getCartao().equals(cartaoCompra)){
+						if(cartaoAux.getFechamento().toString().length() > 0){
+							diaFechamentoCartao = Integer.parseInt(cartaoAux.getFechamento());
+						}else{
+							diaFechamentoCartao = 0;}
+					}
+				}
+    			
+    			int diaCompraInt = Integer.parseInt( diaCompra );
+    			int mesCompraInt = Integer.parseInt( mesCompra );
+    			
+    			if( ((mesEscolhidoInt == mesCompraInt + 1 ) && diaCompraInt > diaFechamentoCartao ) || ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt <= diaFechamentoCartao )){
+    				total = total + Double.parseDouble(df.format(compraAux.getValor()));
+    			}
+		}  	
+    	
+    	faturaProxMes.setText("Fatura somada para o mês " + mesEscolhidoInt + ": R$" + df.format(total));
+    }
     
 	public static List<Cartao> getCartoes() {
     	List<Cartao> cartoes = new ArrayList<Cartao>();

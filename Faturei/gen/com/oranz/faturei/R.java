@@ -15,6 +15,7 @@ public final class R {
     }
     public static final class color {
         public static final int black=0x7f050000;
+        public static final int red=0x7f050001;
     }
     public static final class drawable {
         public static final int chip=0x7f020000;
@@ -35,26 +36,27 @@ public final class R {
         public static final int excluirCartao=0x7f09000c;
         public static final int excluirCartaoText=0x7f09000a;
         public static final int excluirCompraButton=0x7f09000f;
-        public static final int faturavoltar=0x7f09001b;
+        public static final int faturaTextView=0x7f09001b;
+        public static final int faturavoltar=0x7f09001c;
         public static final int imageView1=0x7f090000;
         public static final int maisDia=0x7f090008;
         public static final int menosDia=0x7f090006;
-        public static final int menu_settings=0x7f090022;
-        public static final int mesSpinner=0x7f09001d;
+        public static final int menu_settings=0x7f090023;
+        public static final int mesSpinner=0x7f09001e;
         public static final int nomeCartao=0x7f090002;
         public static final int okConfig=0x7f090009;
-        public static final int okMesButton=0x7f09001e;
+        public static final int okMesButton=0x7f09001f;
         public static final int putNomeCartao=0x7f090003;
         public static final int spinner4=0x7f090015;
         public static final int spinner5=0x7f090017;
         public static final int spinnerCompras=0x7f09000e;
-        public static final int spinnercartoes=0x7f09001c;
-        public static final int text1=0x7f090020;
-        public static final int text2=0x7f090021;
+        public static final int spinnercartoes=0x7f09001d;
+        public static final int text1=0x7f090021;
+        public static final int text2=0x7f090022;
         public static final int textView1=0x7f09000d;
         public static final int textView4=0x7f090011;
         public static final int textView5=0x7f090016;
-        public static final int totalTextView=0x7f09001f;
+        public static final int totalTextView=0x7f090020;
         public static final int vencimento=0x7f090004;
         public static final int voltarConfiguracoes=0x7f090005;
     }
@@ -85,6 +87,7 @@ public final class R {
         public static final int excluir=0x7f040018;
         public static final int excluirCompra=0x7f04001e;
         public static final int excluircartao=0x7f040019;
+        public static final int faturaproxmes=0x7f040025;
         public static final int hello_world=0x7f040001;
         public static final int incluir=0x7f04000e;
         public static final int incluir_compra=0x7f040006;
