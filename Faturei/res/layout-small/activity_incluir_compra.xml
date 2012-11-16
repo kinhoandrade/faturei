@@ -17,15 +17,6 @@
 	        android:contentDescription="@string/chip"
 	        android:src="@drawable/chip" />
 	
-	    <Button
-	        android:id="@+id/voltarBT"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentBottom="true"
-	        android:layout_alignRight="@+id/imageView1"
-	        android:layout_marginBottom="20dp"
-	        android:text="@string/voltar" />
-	
 	    <TextView
 	        android:id="@+id/valorTV"
 	        android:layout_width="wrap_content"
@@ -54,7 +45,7 @@
 	
 	    <DatePicker
 	        android:id="@+id/dataCompraDP"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@id/valorET"
 	        android:layout_below="@id/valorET"
@@ -96,7 +87,7 @@
 	
 	    <Spinner
 	        android:id="@+id/cartaoSP"
-	        android:layout_width="300dp"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@id/parceladoCB"
 	        android:layout_below="@+id/parceladoCB"
@@ -114,8 +105,8 @@
 	    
 	    <Button
 	        android:id="@+id/incluirBT"
-	        android:layout_width="220dp"
-	        android:layout_height="50dp"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/parceladoCB"
 	        android:layout_below="@id/descricaoET"
 	        android:layout_marginBottom="20dp"
@@ -129,8 +120,16 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentTop="true"
-	        android:text="@string/normal"
-	        android:visibility="invisible" />
+	        android:text="@string/small"
+	        android:visibility="invisible" />	    
+	
+	    <Button
+	        android:id="@+id/voltarBT"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+			android:layout_below="@+id/incluirBT"
+			android:layout_alignLeft="@+id/incluirBT"
+	        android:text="@string/voltar" />
 
 	    <TextView
 	        android:id="@+id/cartaoTV"

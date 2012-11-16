@@ -25,6 +25,7 @@ public class IncluirCompra extends Activity {
 	private EditText valor;
 	private EditText descricao;
 	private TextView vezes;
+	private TextView screensizeTV;
 	private Spinner parcelas;
 	private DatePicker dataCompra;
 	private Spinner cartao;
@@ -33,18 +34,26 @@ public class IncluirCompra extends Activity {
     private Button btnVoltar;
     private Button btnIncluir;
     private List<Cartao> cartoes;
+    
+    String dataCompraString;
 
 
     @Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incluir_compra);
-        valor = (EditText) findViewById(R.id.editText1);
-        descricao = (EditText) findViewById(R.id.descricaoEditText);
-        vezes = (TextView) findViewById(R.id.textView5);
-        btnVoltar = (Button) findViewById(R.id.button1);
-        btnIncluir = (Button)  findViewById(R.id.button2);
-        dataCompra = (DatePicker) findViewById(R.id.dataCompra);
+        valor = (EditText) findViewById(R.id.valorET);
+        descricao = (EditText) findViewById(R.id.descricaoET);
+        vezes = (TextView) findViewById(R.id.novezesTV);
+        screensizeTV = (TextView) findViewById(R.id.screensizeTV);
+        btnVoltar = (Button) findViewById(R.id.voltarBT);
+        btnIncluir = (Button)  findViewById(R.id.incluirBT);
+
+        if(screensizeTV.getText().toString().equalsIgnoreCase("normal")){
+        	dataCompra = (DatePicker) findViewById(R.id.dataCompraDP);
+        }else{
+        	dataCompra = (DatePicker) findViewById(R.id.dataCompraDP);
+        }
  
         array_spinner= new String[12];
         array_spinner[0] = "1";
@@ -59,7 +68,7 @@ public class IncluirCompra extends Activity {
         array_spinner[9] = "10";
         array_spinner[10] = "11";
         array_spinner[11] = "12";
-        parcelas = (Spinner) findViewById(R.id.spinner4);
+        parcelas = (Spinner) findViewById(R.id.parcelasSP);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         parcelas.setAdapter(adapter);
@@ -73,7 +82,7 @@ public class IncluirCompra extends Activity {
         	i++;
 		}
         
-        cartao = (Spinner) findViewById(R.id.spinner5);
+        cartao = (Spinner) findViewById(R.id.cartaoSP);
         
         //@SuppressWarnings({ "rawtypes", "unchecked" })
 		//ArrayAdapter adapter5 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
@@ -94,15 +103,15 @@ public class IncluirCompra extends Activity {
 	}
     
     public void addListenerOnSpinnerItemSelection() {
-    	parcelas = (Spinner) findViewById(R.id.spinner4);
+    	parcelas = (Spinner) findViewById(R.id.parcelasSP);
     	parcelas.setOnItemSelectedListener(new CustomOnItemSelectedListener());
       }
     
     // get the selected dropdown list value
     public void addListenerOnButton() {   
-    	parcelas = (Spinner) findViewById(R.id.spinner4);
-    	cartao = (Spinner) findViewById(R.id.spinner5);
-	  	btnIncluir = (Button) findViewById(R.id.button2);
+    	parcelas = (Spinner) findViewById(R.id.parcelasSP);
+    	cartao = (Spinner) findViewById(R.id.cartaoSP);
+	  	btnIncluir = (Button) findViewById(R.id.incluirBT);
 	  	btnIncluir.setOnClickListener(new OnClickListener() {
 		  	@Override
 		  	public void onClick(View v) {   
@@ -113,9 +122,9 @@ public class IncluirCompra extends Activity {
     
     public void incluir(View view) {
         switch (view.getId()) {
-        case R.id.button2:
-        	CheckBox parcelado = (CheckBox) findViewById(R.id.checkBox1);
-            Spinner parcelas = (Spinner) findViewById(R.id.spinner4);
+        case R.id.incluirBT:
+        	CheckBox parcelado = (CheckBox) findViewById(R.id.parceladoCB);
+            Spinner parcelas = (Spinner) findViewById(R.id.parcelasSP);
             int qtdParcelas = 1;
                     	
             if (valor.getText().length() == 0) {
@@ -134,7 +143,7 @@ public class IncluirCompra extends Activity {
 	            	compra.setDescricao("");
 	            }
 	            if(cartoes.size() < 1){
-	            	MainActivity.addCartao("DEFAULT", data);
+	            	MainActivity.addCartao("DEFAULT", ""+dataCompra.getDayOfMonth());
 	            	compra.setCartao("DEFAULT");
 	            }else{
 	            	compra.setCartao(cartao.getSelectedItem().toString());

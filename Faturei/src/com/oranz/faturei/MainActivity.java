@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch ( item.getItemId() ) {
           case 1:   	
-              Toast.makeText(this, "Faturei v1.0\nDesenvolvido por Oranz", Toast.LENGTH_LONG).show();
+              Toast.makeText(this, "Faturei v1.3\nDesenvolvido por Oranz", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -131,6 +131,7 @@ public class MainActivity extends Activity {
 	    		compraAux = new Compra();
 	    	    cursor.moveToNext();
 	    	}
+    		db.close();
     	}catch(Exception e){
     		e.printStackTrace();
     	}
@@ -200,6 +201,8 @@ public class MainActivity extends Activity {
 	    		}
 	    	    cursor.moveToNext();
 	    	}
+	    	
+	    	db.close();
     	}catch(Exception e){
     		e.printStackTrace();
     	}

@@ -44,5 +44,11 @@
     <string name="info">Info</string>
     <string name="faturaproxmes">Fatura para</string>
     <color name="red">#FF0000</color>
+    <string name="parcelas">Parcelas</string>
+    <string name="datacompra">Data</string>
+    <string name="small">small</string>
+    <string name="normal">normal</string>
+    <string name="cartao">Cartão</string>
+    <string name="descricao">Descrição</string>
 
 </resources>
