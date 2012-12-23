@@ -50,5 +50,7 @@
     <string name="normal">normal</string>
     <string name="cartao">Cartão</string>
     <string name="descricao">Descrição</string>
+    <string name="exportar">Exportar</string>
+    <string name="importar">Importar</string>
 
 </resources>

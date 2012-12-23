@@ -1,6 +1,8 @@
 package com.oranz.faturei;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -34,6 +36,7 @@ public class IncluirCompra extends Activity {
     private Button btnVoltar;
     private Button btnIncluir;
     private List<Cartao> cartoes;
+    private SimpleDateFormat dateformat;
     
     String dataCompraString;
 
@@ -48,6 +51,7 @@ public class IncluirCompra extends Activity {
         screensizeTV = (TextView) findViewById(R.id.screensizeTV);
         btnVoltar = (Button) findViewById(R.id.voltarBT);
         btnIncluir = (Button)  findViewById(R.id.incluirBT);
+        dateformat = new SimpleDateFormat("dd/MM/yyyy");        
 
         if(screensizeTV.getText().toString().equalsIgnoreCase("normal")){
         	dataCompra = (DatePicker) findViewById(R.id.dataCompraDP);
@@ -134,7 +138,12 @@ public class IncluirCompra extends Activity {
             
             if(!parcelado.isChecked()){
 	            Compra compra = new Compra();
-	            String data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + 1) + "/" + dataCompra.getYear();
+	            String data = "";
+	            if(dataCompra != null){
+	            	data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + 1) + "/" + dataCompra.getYear();
+	            }else{
+	            	data = dateformat.format(new Date());
+	            }
 	            compra.setData( data );
 	            compra.setParcelas("A vista");
 	            if (descricao.getText().length() > 0) {
@@ -148,20 +157,29 @@ public class IncluirCompra extends Activity {
 	            }else{
 	            	compra.setCartao(cartao.getSelectedItem().toString());
 	            }
-	            compra.setValor(Double.parseDouble(df.format(Double.parseDouble(valor.getText().toString()))));
+	            String valorOk = valor.getText().toString().replace(",",".");
+	            compra.setValor(Double.parseDouble(df.format(Double.parseDouble(valorOk))));
 	            MainActivity.addCompra(compra);
             }else{
             	qtdParcelas = Integer.parseInt(parcelas.getSelectedItem().toString());
-            	double valorCompra = Double.parseDouble(valor.getText().toString());
+	            String valorOk = valor.getText().toString().replace(",",".");
+	            valorOk = valorOk.replaceAll("[^0-9.]+", "");
+            	double valorCompra = Double.parseDouble(valorOk);
             	double valorCompraParcelada = valorCompra / qtdParcelas;
             	
             	for (int i = 0; i < qtdParcelas; i ++){
 		            Compra compra = new Compra();
 		            String data = "";
-		            if (dataCompra.getMonth() + i > 12){
-		            	data = dataCompra.getDayOfMonth() + "/" + ((dataCompra.getMonth()-12) + 1 + i)  + "/" + (dataCompra.getYear() + 1);
+		            if(dataCompra == null){
+		            	Date dataTemp = new Date();
+		            	dataTemp.setMonth(dataTemp.getMonth()+i);
+		            	data = dateformat.format(dataTemp);
 		            }else{
-		            	data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + 1 + i)  + "/" + dataCompra.getYear();
+			            if ((dataCompra.getMonth() + 1) + i > 12){
+			            	data = dataCompra.getDayOfMonth() + "/" + ((dataCompra.getMonth()-12) + 1 + i)  + "/" + (dataCompra.getYear() + 1);
+			            }else{
+			            	data = dataCompra.getDayOfMonth() + "/" + (dataCompra.getMonth() + 1 + i)  + "/" + dataCompra.getYear();
+			            }
 		            }
 		            compra.setData( data );
 		            compra.setParcelas((i + 1) + " de " + qtdParcelas );
@@ -171,7 +189,11 @@ public class IncluirCompra extends Activity {
 		            	compra.setDescricao("");
 		            }
 		            if(cartoes.size() < 1){
-		            	MainActivity.addCartao("DEFAULT", data);
+		            	if(data.contains("/")){
+		            		MainActivity.addCartao("DEFAULT", "" + (new Date().getDay()));
+		            	}else{
+		            		MainActivity.addCartao("DEFAULT", data);
+		            	}
 		            	compra.setCartao("DEFAULT");
 		            }else{
 		            	compra.setCartao(cartao.getSelectedItem().toString());

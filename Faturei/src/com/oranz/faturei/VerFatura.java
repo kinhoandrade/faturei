@@ -1,5 +1,10 @@
 package com.oranz.faturei;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +13,7 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -150,7 +156,7 @@ public class VerFatura extends ListActivity {
     			int mesCompraInt = Integer.parseInt( mesCompra );
     			
     			
-    			if( ((mesEscolhidoInt == mesCompraInt + 1 ) && diaCompraInt > diaFechamentoCartao ) || ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt <= diaFechamentoCartao ) || mesEscolhido.equals("TODOS")){
+    			if( ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt > diaFechamentoCartao ) || ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt <= diaFechamentoCartao ) || mesEscolhido.equals("TODOS")){
     				total = total + Double.parseDouble(df.format(compraAux.getValor()));
     				listaComprasList.add(compraAux);
     			}
@@ -166,13 +172,15 @@ public class VerFatura extends ListActivity {
 		}
 
         totalView.setVisibility(1);
-        totalView.setText("\nTotal = R$" + df.format(total));   
+        totalView.setText("\nTotal: R$" + df.format(total));   
     }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
       boolean result = super.onCreateOptionsMenu(menu);
       menu.add(0, 1, Menu.NONE, R.string.incluir_compra );
+      menu.add(0, 2, Menu.NONE, R.string.exportar);
+      menu.add(0, 3, Menu.NONE, R.string.importar);
       return result;
     }
     
@@ -184,6 +192,65 @@ public class VerFatura extends ListActivity {
 
           	nextScreen.putExtra("origin", "fatura");
         	startActivity(nextScreen);
+        	
+          case 2:
+        	  try{
+	        	File sdCard = Environment.getExternalStorageDirectory();
+	        	File dir = new File (sdCard.getAbsolutePath() + "/oranz/faturei");
+	        	dir.mkdirs();
+	        	String compras = "";
+
+		      	//DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		      	//Date date = new Date();
+		      	//String filename = "faturei_export_"+dateFormat.format(date)+".csv";
+		      	String filename = "faturei_export.csv";
+	        	File file = new File(dir, filename);
+	        	FileOutputStream f = new FileOutputStream(file);
+	        	
+	        	List<Compra> listaCompras  = MainActivity.getCompras();
+	        	
+	        	for (Compra compra : listaCompras) {
+					compras = compras + "\n" + compra.getCartao() + ";" + compra.getData() + ";" + compra.getValor() + ";" + compra.getDescricao() + ";" + compra.getParcelas();
+				}
+	        	
+	        	System.out.println(compras);
+	        	f.write(compras.getBytes());
+	    
+	        	if(file.canWrite()){
+	        		f.close();
+	        		Toast.makeText(this, "Exportado com sucesso para: " + dir + filename, Toast.LENGTH_LONG).show();
+	        	}else{
+	        		Toast.makeText(this, "Não foi possível exportar devido a problema de permissão.", Toast.LENGTH_LONG).show();
+	        	}
+        	  }catch(Exception e){
+        		  Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        		  e.printStackTrace();
+        	  }
+          case 3:
+        	  String eol = System.getProperty("line.separator");
+        	  BufferedReader input = null;
+        	  try {
+    			File sdCard = Environment.getExternalStorageDirectory();
+        	    input = new BufferedReader(new InputStreamReader(openFileInput(sdCard.getAbsolutePath() + "/oranz/faturei/faturei_export.csv")));
+        	    String line;
+        	    StringBuffer buffer = new StringBuffer();
+        	    while ((line = input.readLine()) != null) {
+        	    	buffer.append(line + eol);
+        	    	System.out.println("COMPRAS");
+        	    	System.out.println(line);
+        	    }
+        	  } catch (Exception e) {
+        	     e.printStackTrace();
+        	  } finally {
+        	  if (input != null) {
+        	    try {
+        	    	input.close();
+        	    } catch (IOException e) {
+        	      e.printStackTrace();
+        	    }
+        	    }
+        	  }
+	        	
         }
         listaFiltrado();
         return super.onOptionsItemSelected(item);

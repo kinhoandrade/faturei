@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch ( item.getItemId() ) {
           case 1:   	
-              Toast.makeText(this, "Faturei v1.3\nDesenvolvido por Oranz", Toast.LENGTH_LONG).show();
+              Toast.makeText(this, "Faturei v1.6\nDesenvolvido por Oranz", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -161,7 +161,12 @@ public class MainActivity extends Activity {
     			for (Cartao cartaoAux : listaCartao) {
 					if(cartaoAux.getCartao().equals(cartaoCompra)){
 						if(cartaoAux.getFechamento().toString().length() > 0){
-							diaFechamentoCartao = Integer.parseInt(cartaoAux.getFechamento());
+							if(cartaoAux.getFechamento().contains("/")){
+								String[] dataFechamento = cartaoAux.getFechamento().split("/");
+								diaFechamentoCartao = Integer.parseInt(dataFechamento[0]);
+							}else{
+								diaFechamentoCartao = Integer.parseInt(cartaoAux.getFechamento());
+							}
 						}else{
 							diaFechamentoCartao = 0;}
 					}
@@ -170,12 +175,19 @@ public class MainActivity extends Activity {
     			int diaCompraInt = Integer.parseInt( diaCompra );
     			int mesCompraInt = Integer.parseInt( mesCompra );
     			
-    			if( ((mesEscolhidoInt == mesCompraInt + 1 ) && diaCompraInt > diaFechamentoCartao ) || ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt <= diaFechamentoCartao )){
+    			if(mesCompraInt == 1){
+    				mesCompraInt = 13;
+    			}
+    			
+    			if( ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt > diaFechamentoCartao ) || ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt <= diaFechamentoCartao )){
     				total = total + Double.parseDouble(df.format(compraAux.getValor()));
     			}
 		}  	
-    	
-    	faturaProxMes.setText("Fatura somada para o mês " + mesEscolhidoInt + ": R$" + df.format(total));
+    	if (mesEscolhidoInt < 13){
+    		faturaProxMes.setText("Fatura somada para o mês " + mesEscolhidoInt + ": R$" + df.format(total));
+    	}else {
+    		faturaProxMes.setText("Fatura somada para o mês 01: R$" + df.format(total));
+    	}
     }
     
 	public static List<Cartao> getCartoes() {

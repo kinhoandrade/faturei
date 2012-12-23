@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-        <ImageView
+
+    <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,13 +20,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
         android:text="@string/voltar" />
 
     <Spinner
         android:id="@+id/spinnercartoes"
-        android:layout_width="230dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -35,32 +35,25 @@
 
     <Spinner
         android:id="@+id/mesSpinner"
-        android:layout_width="230dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/spinnercartoes"
         android:layout_below="@+id/spinnercartoes"
         android:layout_marginTop="5dp" />
 
-    <Button
-        android:id="@+id/okMesButton"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/mesSpinner"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/mesSpinner"
-        android:onClick="filtraMes"
-        android:text="@string/ok" />
-    
     <TextView
         android:id="@+id/totalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/faturavoltar"
-        android:layout_alignBottom="@+id/faturavoltar"
+        android:layout_alignTop="@+id/faturavoltar"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/faturavoltar"
         android:text="@string/total"
         android:visibility="invisible" />
 
-  <ListView android:id="@+id/android:list"
+    <ListView
+        android:id="@+id/android:list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/faturavoltar"
@@ -69,10 +62,20 @@
         android:layout_below="@+id/mesSpinner"
         android:layout_marginTop="5dp" />
 
-  <TextView android:id="@+id/android:empty"
+    <TextView
+        android:id="@+id/android:empty"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/mesSpinner"
-        android:text="@string/semcompras"/>
+        android:text="@string/semcompras" />
+
+    <Button
+        android:id="@+id/okMesButton"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/mesSpinner"
+        android:layout_alignTop="@+id/mesSpinner"
+        android:onClick="filtraMes"
+        android:text="@string/ok" />
 
 </RelativeLayout>

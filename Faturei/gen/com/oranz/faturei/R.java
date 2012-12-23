@@ -95,8 +95,10 @@ public final class R {
         public static final int excluir=0x7f040018;
         public static final int excluirCompra=0x7f04001e;
         public static final int excluircartao=0x7f040019;
+        public static final int exportar=0x7f04002c;
         public static final int faturaproxmes=0x7f040025;
         public static final int hello_world=0x7f040001;
+        public static final int importar=0x7f04002d;
         public static final int incluir=0x7f04000e;
         public static final int incluir_compra=0x7f040006;
         public static final int info=0x7f040024;
