@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch ( item.getItemId() ) {
           case 1:   	
-              Toast.makeText(this, "Faturei v1.6\nDesenvolvido por Oranz", Toast.LENGTH_LONG).show();
+              Toast.makeText(this, "Faturei v1.7\nDesenvolvido por Oranz", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }
