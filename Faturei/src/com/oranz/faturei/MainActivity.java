@@ -1,6 +1,7 @@
 package com.oranz.faturei;
 
 import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,10 @@ import com.oranz.faturei.R;
 import com.oranz.dao.DBAdapter;
 import com.oranz.entidades.Cartao;
 import com.oranz.entidades.Compra;
+
+import com.tapfortap.AdView;
+import com.tapfortap.TapForTap;
+import com.tapfortap.TapForTap.Gender;
 
 public class MainActivity extends Activity {
 	
@@ -41,7 +47,11 @@ public class MainActivity extends Activity {
         }
 
         //dropTables();
-
+        
+        TapForTap.initialize(this, "8607E43DACE92FBD0BA571439A4D38F0");
+        
+        AdView adView = (AdView) findViewById(R.id.ad_view);
+        
         calculaFatura();
     }
 	

@@ -23,6 +23,7 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
+        public static final int ad_view=0x7f090020;
         public static final int adicionarCartao=0x7f090001;
         public static final int button1=0x7f09001d;
         public static final int button2=0x7f09001e;
@@ -37,28 +38,28 @@ public final class R {
         public static final int excluirCartao=0x7f09000c;
         public static final int excluirCartaoText=0x7f09000a;
         public static final int excluirCompraButton=0x7f09000f;
-        public static final int faturaTextView=0x7f090020;
-        public static final int faturavoltar=0x7f090021;
+        public static final int faturaTextView=0x7f090021;
+        public static final int faturavoltar=0x7f090022;
         public static final int imageView1=0x7f090000;
         public static final int incluirBT=0x7f090019;
         public static final int maisDia=0x7f090008;
         public static final int menosDia=0x7f090006;
-        public static final int menu_settings=0x7f090028;
-        public static final int mesSpinner=0x7f090023;
+        public static final int menu_settings=0x7f090029;
+        public static final int mesSpinner=0x7f090024;
         public static final int nomeCartao=0x7f090002;
         public static final int novezesTV=0x7f090016;
         public static final int okConfig=0x7f090009;
-        public static final int okMesButton=0x7f090024;
+        public static final int okMesButton=0x7f090025;
         public static final int parceladoCB=0x7f090014;
         public static final int parcelasSP=0x7f090015;
         public static final int putNomeCartao=0x7f090003;
         public static final int screensizeTV=0x7f09001a;
         public static final int spinnerCompras=0x7f09000e;
-        public static final int spinnercartoes=0x7f090022;
-        public static final int text1=0x7f090026;
-        public static final int text2=0x7f090027;
+        public static final int spinnercartoes=0x7f090023;
+        public static final int text1=0x7f090027;
+        public static final int text2=0x7f090028;
         public static final int textView1=0x7f09000d;
-        public static final int totalTextView=0x7f090025;
+        public static final int totalTextView=0x7f090026;
         public static final int valorET=0x7f090012;
         public static final int valorTV=0x7f090011;
         public static final int vencimento=0x7f090004;
