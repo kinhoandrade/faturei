@@ -9,7 +9,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +23,6 @@ import com.oranz.entidades.Compra;
 
 import com.tapfortap.AdView;
 import com.tapfortap.TapForTap;
-import com.tapfortap.TapForTap.Gender;
 
 public class MainActivity extends Activity {
 	
@@ -32,6 +30,7 @@ public class MainActivity extends Activity {
 	private static DBAdapter db;
 	private TextView faturaProxMes;
 	
+	@SuppressWarnings("unused")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +40,8 @@ public class MainActivity extends Activity {
         faturaProxMes = (TextView) findViewById(R.id.faturaTextView);
         
         try{
-        	db = new DBAdapter(getApplicationContext());        	
+        	db = new DBAdapter(getApplicationContext());    
+        	db.close();
         }catch(Exception e){
         	e.printStackTrace();        	
         }
@@ -142,6 +142,7 @@ public class MainActivity extends Activity {
 	    	    cursor.moveToNext();
 	    	}
     		db.close();
+    		cursor.close();
     	}catch(Exception e){
     		e.printStackTrace();
     	}
@@ -194,9 +195,9 @@ public class MainActivity extends Activity {
     			}
 		}  	
     	if (mesEscolhidoInt < 13){
-    		faturaProxMes.setText("Fatura somada para o mês " + mesEscolhidoInt + ": R$" + df.format(total));
+    		faturaProxMes.setText("Fatura do mês " + mesEscolhidoInt + ":$" + df.format(total));
     	}else {
-    		faturaProxMes.setText("Fatura somada para o mês 01: R$" + df.format(total));
+    		faturaProxMes.setText("Fatura do mês 01:$" + df.format(total));
     	}
     }
     
@@ -225,6 +226,7 @@ public class MainActivity extends Activity {
 	    	}
 	    	
 	    	db.close();
+	    	cursor.close();
     	}catch(Exception e){
     		e.printStackTrace();
     	}

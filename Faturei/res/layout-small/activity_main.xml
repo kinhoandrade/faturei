@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"
         android:onClick="incluirCompra"
         android:text="@string/incluir_compra" />
 
@@ -32,7 +33,7 @@
         android:layout_alignLeft="@+id/button1"
         android:layout_below="@id/button1"
         android:layout_centerVertical="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:onClick="verFatura"
         android:text="@string/ver_fatura" />
 
@@ -43,19 +44,27 @@
         android:layout_alignLeft="@id/button2"
         android:layout_below="@id/button2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:onClick="irConfiguracoes"
         android:text="@string/configuracoes" />
 
-    <TextView
-        android:id="@+id/faturaTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/button3"
-        android:layout_marginTop="5dp"
-        android:text="@string/faturaproxmes"
-        android:textColor="@color/red" />
+     <com.tapfortap.AdView android:id="@+id/ad_view"
+                       android:layout_height="40dp"
+                       android:layout_width="fill_parent"
+                       android:layout_alignParentBottom="true"
+                       android:background="@color/black"
+                       />
+    
+	<TextView
+	        android:id="@+id/faturaTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_below="@id/button3"
+	        android:layout_marginTop="2dp"
+	        android:textSize="10dp"
+	        android:text="@string/faturaproxmes"
+	        android:textColor="@color/red" />
     
 </RelativeLayout>
