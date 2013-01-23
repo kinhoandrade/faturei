@@ -1,6 +1,5 @@
 package com.oranz.faturei;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +30,7 @@ public class IncluirCompra extends Activity {
 	private Spinner parcelas;
 	private DatePicker dataCompra;
 	private Spinner cartao;
-    private DecimalFormat df = new DecimalFormat("0.00");  
+//    private DecimalFormat df = new DecimalFormat("0.00");  
     private String array_spinner[];
     private Button btnVoltar;
     private Button btnIncluir;
@@ -158,7 +157,7 @@ public class IncluirCompra extends Activity {
 	            	compra.setCartao(cartao.getSelectedItem().toString());
 	            }
 	            String valorOk = valor.getText().toString().replace(",",".");
-	            compra.setValor(Double.parseDouble(df.format(Double.parseDouble(valorOk))));
+	            compra.setValor(Double.parseDouble(valorOk));
 	            MainActivity.addCompra(compra);
             }else{
             	qtdParcelas = Integer.parseInt(parcelas.getSelectedItem().toString());
@@ -198,7 +197,7 @@ public class IncluirCompra extends Activity {
 		            }else{
 		            	compra.setCartao(cartao.getSelectedItem().toString());
 		            }
-		            compra.setValor(Double.parseDouble(df.format(valorCompraParcelada)));
+		            compra.setValor(valorCompraParcelada);
 		            MainActivity.addCompra(compra);
             	}            	
             }

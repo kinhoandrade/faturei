@@ -157,7 +157,8 @@ public class VerFatura extends ListActivity {
     			
     			
     			if( ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt > diaFechamentoCartao ) || ((mesEscolhidoInt == mesCompraInt ) && diaCompraInt <= diaFechamentoCartao ) || mesEscolhido.equals("TODOS")){
-    				total = total + Double.parseDouble(df.format(compraAux.getValor()));
+    				//total = total + Double.parseDouble(df.format(compraAux.getValor()));
+    				total = total + compraAux.getValor();
     				listaComprasList.add(compraAux);
     			}
     		}
